@@ -1,0 +1,1857 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f8f5ee">
+  <meta name="description" content="Trân trọng kính mời Ai đó đến tham dự lễ tốt nghiệp của Nguyễn Thái Dương.">
+  <title>Thư mời tốt nghiệp · NGUYỄN THÁI DƯƠNG</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://res.cloudinary.com">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600;1,700&display=swap">
+  <style>
+    :root {
+      --pine-hue: 56;
+      --warm-hue: 78;
+
+      /* Light Editorial Palette: Warm Alabaster, Espresso Umber Ink & Sunlit Ochre */
+      --paper: oklch(97.6% 0.01 var(--warm-hue));
+      --paper-warm: oklch(95.2% 0.016 var(--warm-hue));
+      --paper-card: oklch(99% 0.005 var(--warm-hue));
+      --paper-sunken: oklch(92.8% 0.02 var(--warm-hue));
+
+      --ink: oklch(24% 0.024 var(--pine-hue));
+      --ink-secondary: oklch(40% 0.022 var(--pine-hue));
+      --ink-muted: oklch(54% 0.018 var(--pine-hue));
+
+      --accent: oklch(53% 0.12 62);
+      --accent-hover: oklch(45% 0.125 62);
+      --accent-soft: oklch(53% 0.12 62 / 0.11);
+      --pine-deep: oklch(26% 0.032 54);
+      --footer-bg: oklch(91.5% 0.024 74);
+      --footer-card: oklch(23.5% 0.03 52);
+
+      --line: oklch(85% 0.018 var(--warm-hue));
+      --line-strong: oklch(72% 0.035 72);
+
+      /* Typography */
+      --font-display: "Cormorant Garamond", Georgia, serif;
+      --font-body: "Be Vietnam Pro", system-ui, -apple-system, sans-serif;
+
+      --step--2: clamp(0.72rem, 0.7rem + 0.1vw, 0.78rem);
+      --step--1: clamp(0.84rem, 0.81rem + 0.15vw, 0.92rem);
+      --step-0: clamp(0.96rem, 0.93rem + 0.18vw, 1.0625rem);
+      --step-1: clamp(1.18rem, 1.08rem + 0.4vw, 1.375rem);
+      --step-2: clamp(1.5rem, 1.32rem + 0.8vw, 1.95rem);
+      --step-3: clamp(1.95rem, 1.64rem + 1.4vw, 2.75rem);
+      --step-4: clamp(2.55rem, 2.05rem + 2.4vw, 3.85rem);
+      --step-5: clamp(3.15rem, 2.35rem + 3.8vw, 5.25rem);
+
+      /* Spacing 4pt scale */
+      --space-1: 4px;
+      --space-2: 8px;
+      --space-3: 12px;
+      --space-4: 16px;
+      --space-5: 24px;
+      --space-6: 32px;
+      --space-7: 48px;
+      --space-8: 64px;
+      --space-9: 96px;
+
+      /* Shape & Interaction */
+      --radius-sm: 6px;
+      --radius-md: 12px;
+      --touch: 44px;
+      --container: 1180px;
+      --gutter: clamp(18px, 4vw, 48px);
+
+      --dur-press: 120ms;
+      --dur-state: 240ms;
+      --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+      --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    [hidden] {
+      display: none !important;
+    }
+
+    html {
+      background: var(--paper);
+      color: var(--ink);
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100dvh;
+      overflow-x: hidden;
+      background: var(--paper);
+      color: var(--ink);
+      font: 400 var(--step-0) / 1.65 var(--font-body);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body:has(.opening:not([hidden])),
+    body:has(dialog[open]) {
+      overflow: hidden;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    button {
+      color: inherit;
+      font: inherit;
+      cursor: pointer;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    :focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+    }
+
+    h1, h2, h3, p, figure {
+      margin: 0;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      overflow: hidden;
+      clip-path: inset(50%);
+      white-space: nowrap;
+    }
+
+    /* Common Interactive Controls */
+    .btn-editorial {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-2);
+      min-height: var(--touch);
+      padding: 0 var(--space-5);
+      border: 1px solid var(--pine-deep);
+      border-radius: var(--radius-sm);
+      background: var(--pine-deep);
+      color: var(--paper-card);
+      font-size: var(--step--1);
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      transition:
+        transform var(--dur-state) var(--ease-out-quart),
+        background-color var(--dur-state) var(--ease-out-quart),
+        border-color var(--dur-state) var(--ease-out-quart);
+    }
+
+    .btn-editorial:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    .btn-editorial:active {
+      transform: translateY(1px);
+    }
+
+    .photo-button {
+      position: relative;
+      display: block;
+      width: 100%;
+      padding: 0;
+      border: 0;
+      background: none;
+      overflow: hidden;
+      text-align: left;
+    }
+
+    .photo-button img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 700ms var(--ease-out-expo);
+    }
+
+    .photo-button:hover img {
+      transform: scale(1.03);
+    }
+
+    /* ==========================================================================
+       1. ENVELOPE TEAR-STRIP & VERTICAL SPLIT-GATE OVERLAY
+       ========================================================================== */
+    .opening {
+      --tear-progress: 0;
+      --seam-clip-right: 100%;
+      position: fixed;
+      z-index: 50;
+      inset: 0;
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-template-rows: 1fr 1fr;
+      overflow: hidden;
+      pointer-events: auto;
+    }
+
+    .opening.is-opening {
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 420ms var(--ease-out-expo);
+    }
+
+    .gate-panel {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: clamp(20px, 4vw, 44px);
+      background:
+        radial-gradient(circle at 50% 50%, var(--paper-card), var(--paper-warm) 88%);
+      will-change: transform;
+    }
+
+    .gate-panel--top {
+      justify-content: flex-end;
+      gap: var(--space-2);
+      padding-bottom: clamp(56px, 10vh, 84px);
+      border-bottom: 1px dashed var(--line-strong);
+    }
+
+    .gate-panel--bottom {
+      justify-content: flex-start;
+      gap: var(--space-2);
+      padding-top: clamp(56px, 10vh, 84px);
+    }
+
+    /* Inner hairline frame on the two envelope halves */
+    .gate-panel::before {
+      position: absolute;
+      inset: clamp(12px, 2.2vw, 24px);
+      border: 1px solid var(--line);
+      content: "";
+      pointer-events: none;
+    }
+
+    .gate-panel--top::before {
+      bottom: 0;
+      border-bottom: 0;
+    }
+
+    .gate-panel--bottom::before {
+      top: 0;
+      border-top: 0;
+    }
+
+    /* Torn paper seam edge revealed progressively as the handle tears across */
+    .gate-panel--top::after,
+    .gate-panel--bottom::after {
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 8px;
+      content: "";
+      pointer-events: none;
+      clip-path: inset(0 var(--seam-clip-right) 0 0);
+    }
+
+    .gate-panel--top::after {
+      bottom: -4px;
+      background:
+        repeating-linear-gradient(
+          -65deg,
+          var(--paper-card) 0 4px,
+          transparent 4px 8px
+        );
+      filter: drop-shadow(0 2px 2px oklch(24% 0.03 54 / 0.14));
+    }
+
+    .gate-panel--bottom::after {
+      top: -4px;
+      background:
+        repeating-linear-gradient(
+          65deg,
+          var(--paper-card) 0 4px,
+          transparent 4px 8px
+        );
+      filter: drop-shadow(0 -2px 2px oklch(24% 0.03 54 / 0.1));
+    }
+
+    .seal-emblem {
+      position: relative;
+      z-index: 1;
+      display: inline-grid;
+      place-items: center;
+      width: 44px;
+      height: 44px;
+      margin-bottom: var(--space-1);
+      border: 1px solid var(--line-strong);
+      border-radius: 50%;
+      background: var(--accent-soft);
+      color: var(--accent);
+    }
+
+    .seal-emblem svg {
+      width: 22px;
+      height: 22px;
+    }
+
+    .gate-meta {
+      position: relative;
+      z-index: 1;
+      font-size: var(--step--2);
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+    }
+
+    .seal-graduate {
+      position: relative;
+      z-index: 1;
+      font: 700 clamp(1.9rem, 6vw, 2.85rem) / 1.04 var(--font-display);
+      color: var(--ink);
+    }
+
+    .seal-sub {
+      position: relative;
+      z-index: 1;
+      font: italic 500 var(--step-0) / 1.25 var(--font-display);
+      color: var(--ink-secondary);
+    }
+
+    .gate-word {
+      position: relative;
+      z-index: 1;
+      font: italic 700 clamp(1.75rem, 5vw, 2.65rem) / 1.08 var(--font-display);
+      color: var(--accent);
+    }
+
+    .gate-date {
+      position: relative;
+      z-index: 1;
+      margin-top: var(--space-1);
+      font: 600 clamp(1.15rem, 2.4vw, 1.5rem) / 1 var(--font-display);
+      letter-spacing: 0.16em;
+      font-variant-numeric: tabular-nums;
+      color: var(--ink-secondary);
+    }
+
+    /* Horizontal Tear Strip Track & Rolling Button */
+    .gate-seam {
+      position: fixed;
+      z-index: 52;
+      inset: 50% 0 auto;
+      transform: translateY(-50%);
+      display: flex;
+      justify-content: center;
+      padding-inline: 32px;
+      pointer-events: none;
+    }
+
+    .tear-track {
+      pointer-events: auto;
+      position: relative;
+      display: flex;
+      align-items: center;
+      width: min(400px, calc(100vw - 64px));
+      height: 68px;
+      padding: 6px;
+      border: 1px solid var(--line-strong);
+      border-radius: 999px;
+      background: oklch(99% 0.006 var(--warm-hue) / 0.94);
+      box-shadow: 0 14px 36px oklch(24% 0.03 54 / 0.12);
+      touch-action: none;
+      user-select: none;
+      -webkit-user-select: none;
+      -webkit-touch-callout: none;
+      overflow: hidden;
+    }
+
+    /* Perforation dashed line ahead of the tear handle */
+    .tear-perforation {
+      position: absolute;
+      inset: 50% 22px auto 72px;
+      height: 0;
+      border-top: 1.5px dashed var(--line-strong);
+      opacity: 0.55;
+      pointer-events: none;
+    }
+
+    /* Torn recessed slot revealed behind the rolling button */
+    .tear-cut {
+      position: absolute;
+      top: 50%;
+      left: 10px;
+      right: 16px;
+      height: 8px;
+      transform: translateY(-50%) scaleX(var(--tear-progress));
+      transform-origin: left center;
+      border-radius: 999px;
+      background: oklch(26% 0.03 54 / 0.18);
+      box-shadow: inset 0 2px 4px oklch(20% 0.03 54 / 0.28);
+      pointer-events: none;
+      will-change: transform;
+    }
+
+    .tear-hint {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 16px 0 66px;
+      white-space: nowrap;
+      font-size: var(--step--2);
+      font-weight: 600;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      color: var(--ink-secondary);
+      pointer-events: none;
+      transition: opacity 180ms var(--ease-out-quart), color 180ms var(--ease-out-quart);
+    }
+
+    .tear-track.is-ready .tear-hint {
+      color: var(--accent);
+    }
+
+    .tear-handle {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      place-items: center;
+      width: 56px;
+      height: 56px;
+      flex-shrink: 0;
+      padding: 0;
+      border: 1.5px solid var(--accent);
+      border-radius: 50%;
+      background: transparent;
+      box-shadow: 0 6px 16px oklch(24% 0.03 54 / 0.22);
+      overflow: hidden;
+      cursor: grab;
+      touch-action: none;
+      user-select: none;
+      -webkit-user-select: none;
+      -webkit-touch-callout: none;
+      will-change: transform;
+    }
+
+    .tear-handle:hover {
+      border-color: var(--accent-hover);
+    }
+
+    .tear-handle.is-dragging {
+      cursor: grabbing;
+    }
+
+    .tear-handle img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: 50% 49%;
+      transform: scale(1.06);
+      pointer-events: none;
+      will-change: transform;
+    }
+
+    @media (max-height: 620px) {
+      .gate-panel--top {
+        padding-bottom: 46px;
+      }
+      .gate-panel--bottom {
+        padding-top: 46px;
+      }
+      .seal-emblem {
+        display: none;
+      }
+    }
+
+    /* ==========================================================================
+       2. FLOATING EDITORIAL SOUND BUTTON
+       ========================================================================== */
+    .music {
+      position: fixed;
+      z-index: 35;
+      right: var(--space-4);
+      bottom: var(--space-4);
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      min-height: var(--touch);
+      padding: 0 var(--space-4);
+      border: 1px solid var(--line-strong);
+      border-radius: 999px;
+      background: oklch(99% 0.005 var(--warm-hue) / 0.92);
+      backdrop-filter: blur(8px);
+      color: var(--ink);
+      font-size: var(--step--2);
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      box-shadow: 0 8px 24px oklch(22% 0.03 var(--pine-hue) / 0.1);
+      transition:
+        transform var(--dur-state) var(--ease-out-quart),
+        border-color var(--dur-state) var(--ease-out-quart);
+    }
+
+    .music:hover {
+      transform: translateY(-2px);
+      border-color: var(--accent);
+    }
+
+    .music-bars {
+      display: inline-flex;
+      align-items: flex-end;
+      gap: 2px;
+      height: 14px;
+      color: var(--accent);
+    }
+
+    .music-bars i {
+      display: block;
+      width: 2.5px;
+      height: 5px;
+      border-radius: 2px;
+      background: currentColor;
+      transform-origin: bottom;
+    }
+
+    .music[aria-pressed="true"] .music-bars i:nth-child(1) {
+      animation: soundbar 0.85s ease-in-out infinite alternate;
+    }
+    .music[aria-pressed="true"] .music-bars i:nth-child(2) {
+      animation: soundbar 0.65s ease-in-out 0.15s infinite alternate;
+    }
+    .music[aria-pressed="true"] .music-bars i:nth-child(3) {
+      animation: soundbar 0.95s ease-in-out 0.3s infinite alternate;
+    }
+    .music[aria-pressed="true"] .music-bars i:nth-child(4) {
+      animation: soundbar 0.75s ease-in-out 0.1s infinite alternate;
+    }
+
+    @keyframes soundbar {
+      0% { height: 4px; }
+      100% { height: 14px; }
+    }
+
+    /* ==========================================================================
+       3. MAGAZINE SHELL & MASTHEAD
+       ========================================================================== */
+    .invite {
+      width: min(100%, var(--container));
+      margin-inline: auto;
+      background: var(--paper);
+    }
+
+    .masthead {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-4);
+      padding: var(--space-4) var(--gutter);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .masthead-brand {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+    }
+
+    .hero-logo {
+      width: 46px;
+      height: 46px;
+      flex-shrink: 0;
+      padding: 3px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-sm);
+      background: var(--paper-card);
+    }
+
+    .hero-logo img {
+      object-fit: contain;
+    }
+
+    .masthead-school {
+      display: grid;
+      gap: 2px;
+    }
+
+    .masthead-school strong {
+      font-size: var(--step--2);
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ink);
+    }
+
+    .masthead-school span {
+      font: italic 600 var(--step--1) / 1.2 var(--font-display);
+      color: var(--ink-secondary);
+    }
+
+    .masthead-issue {
+      font-size: var(--step--2);
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--accent);
+      text-align: right;
+    }
+
+    /* ==========================================================================
+       4. EDITORIAL POSTER HERO (ASYMMETRIC MAGAZINE COVER)
+       ========================================================================== */
+    .hero {
+      display: grid;
+      gap: var(--space-6);
+      padding: var(--space-6) var(--gutter) var(--space-8);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .hero-visual {
+      position: relative;
+    }
+
+    .hero-photo {
+      position: relative;
+      aspect-ratio: 4 / 5;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--line);
+      background: var(--paper-sunken);
+      overflow: hidden;
+    }
+
+    .hero-photo img {
+      object-position: 50% 32%;
+      will-change: transform;
+    }
+
+    .hero-caption {
+      display: flex;
+      justify-content: space-between;
+      gap: var(--space-3);
+      margin-top: var(--space-2);
+      font-size: var(--step--2);
+      color: var(--ink-muted);
+    }
+
+    .hero-editorial {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: var(--space-6);
+    }
+
+    .hero-invite-block {
+      display: grid;
+      gap: var(--space-2);
+      padding-bottom: var(--space-5);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .hero-invite-label {
+      font-size: var(--step--2);
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+    }
+
+    .guest {
+      font: italic 700 var(--step-3) / 1.08 var(--font-display);
+      color: var(--accent);
+    }
+
+    .hero-headline {
+      display: grid;
+      gap: var(--space-2);
+    }
+
+    .hero-headline h1 {
+      display: grid;
+      gap: var(--space-1);
+    }
+
+    .hero-headline h1 span {
+      display: block;
+      font: 700 var(--step-5) / 0.92 var(--font-display);
+      letter-spacing: -0.02em;
+      color: var(--ink);
+    }
+
+    .hero-headline h1 em {
+      display: block;
+      font: italic 500 var(--step-2) / 1.15 var(--font-display);
+      color: var(--ink-secondary);
+    }
+
+    /* Typographic Poster Date & Minimal Countdown (No 31-day grid) */
+    .hero-ceremony {
+      display: grid;
+      gap: var(--space-4);
+      padding-top: var(--space-5);
+      border-top: 1px solid var(--line);
+    }
+
+    .ceremony-when {
+      display: grid;
+      gap: var(--space-1);
+    }
+
+    .event-time {
+      display: block;
+      font-size: var(--step--1);
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink-secondary);
+    }
+
+    .poster-date {
+      font: 700 clamp(2.65rem, 6.2vw, 4.4rem) / 0.95 var(--font-display);
+      letter-spacing: 0.02em;
+      font-variant-numeric: tabular-nums;
+      color: var(--ink);
+    }
+
+    .poster-date i {
+      font-style: normal;
+      color: var(--accent);
+      margin-inline: 0.08em;
+    }
+
+    .countdown {
+      display: grid;
+      gap: var(--space-2);
+    }
+
+    .countdown-label {
+      font-size: var(--step--2);
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+    }
+
+    .countdown-values {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: var(--space-2);
+      max-width: 420px;
+    }
+
+    .countdown-values > span {
+      display: grid;
+      gap: 2px;
+      padding: var(--space-3);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-sm);
+      background: var(--paper-card);
+    }
+
+    .countdown-values b {
+      display: block;
+      font: 700 var(--step-2) / 1.05 var(--font-display);
+      font-variant-numeric: tabular-nums;
+      color: var(--ink);
+    }
+
+    .countdown-values small {
+      font-size: var(--step--2);
+      color: var(--ink-muted);
+    }
+
+    /* ==========================================================================
+       5. PERSONAL LETTER ("GỬI BẠN")
+       ========================================================================== */
+    .story {
+      padding: var(--space-8) var(--gutter);
+      background: var(--paper-warm);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .story-layout {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      align-items: center;
+      gap: clamp(16px, 3.5vw, 48px);
+      max-width: 960px;
+      margin-inline: auto;
+    }
+
+    .story-aside {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      align-self: stretch;
+      padding-inline: var(--space-2);
+    }
+
+    .story-aside h2 {
+      display: grid;
+      gap: 2px;
+      text-align: center;
+      font: italic 700 clamp(2.5rem, 5.5vw, 4.25rem) / 0.95 var(--font-display);
+      letter-spacing: -0.01em;
+      color: var(--accent);
+    }
+
+    .story-aside h2 span {
+      display: block;
+    }
+
+    .story-body {
+      display: grid;
+      gap: var(--space-4);
+      padding: var(--space-6);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      background: var(--paper-card);
+    }
+
+    .story-body p {
+      max-width: 64ch;
+      color: var(--ink);
+      font-size: var(--step-0);
+      line-height: 1.8;
+      text-wrap: pretty;
+    }
+
+    .story-body .signature {
+      margin-top: var(--space-4);
+      padding-top: var(--space-4);
+      border-top: 1px solid var(--line);
+      color: var(--accent);
+      font: italic 700 var(--step-2) / 1.15 var(--font-display);
+      text-align: right;
+    }
+
+    /* ==========================================================================
+       6. VENUE, CAMPUS MAPS & PARKING
+       ========================================================================== */
+    .details {
+      display: grid;
+      gap: var(--space-8);
+      padding: var(--space-8) var(--gutter);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .venue {
+      display: grid;
+      gap: var(--space-6);
+    }
+
+    .venue-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: var(--space-5);
+      padding-bottom: var(--space-5);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .venue-copy {
+      display: grid;
+      gap: var(--space-2);
+    }
+
+    .section-title {
+      font: 700 var(--step-3) / 1.08 var(--font-display);
+      color: var(--ink);
+    }
+
+    .venue-intro {
+      font: italic 600 var(--step-1) / 1.35 var(--font-display);
+      color: var(--accent);
+    }
+
+    .venue-school {
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    .address {
+      font-size: var(--step--1);
+      color: var(--ink-secondary);
+    }
+
+    .venue-media {
+      display: grid;
+      gap: var(--space-5);
+    }
+
+    .map {
+      position: relative;
+      min-height: 300px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      background: var(--paper-sunken);
+      overflow: hidden;
+    }
+
+    .map iframe {
+      display: block;
+      width: 100%;
+      height: 100%;
+      min-height: 300px;
+      border: 0;
+    }
+
+    .map a {
+      position: absolute;
+      top: var(--space-3);
+      right: var(--space-3);
+      display: inline-flex;
+      align-items: center;
+      min-height: var(--touch);
+      padding: 0 var(--space-4);
+      border: 1px solid var(--line-strong);
+      border-radius: var(--radius-sm);
+      background: var(--paper-card);
+      color: var(--ink);
+      font-size: var(--step--2);
+      font-weight: 600;
+      box-shadow: 0 4px 12px oklch(22% 0.03 var(--pine-hue) / 0.08);
+      transition: transform var(--dur-state) var(--ease-out-quart);
+    }
+
+    .map a:hover {
+      transform: translateY(-2px);
+      border-color: var(--accent);
+    }
+
+    .venue-guides {
+      display: grid;
+      gap: var(--space-5);
+    }
+
+    .guide-block {
+      display: grid;
+      gap: var(--space-2);
+      padding: var(--space-4);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      background: var(--paper-card);
+    }
+
+    .guide-block h3 {
+      font: 700 var(--step-1) / 1.2 var(--font-display);
+      color: var(--ink);
+    }
+
+    .guide-block p {
+      font-size: var(--step--1);
+      color: var(--ink-secondary);
+    }
+
+    .guide-block .photo-button {
+      aspect-ratio: 16 / 10;
+      margin-top: var(--space-1);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-sm);
+      background: var(--paper-sunken);
+    }
+
+    .guide-block .photo-button img {
+      object-fit: cover;
+    }
+
+    /* ==========================================================================
+       7. CONTACT DIRECTORY
+       ========================================================================== */
+    .contact {
+      display: grid;
+      gap: var(--space-5);
+      padding-top: var(--space-7);
+      border-top: 1px solid var(--line);
+    }
+
+    .contact-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-4);
+    }
+
+    .contact-phone-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-2);
+      font-size: var(--step--1);
+      color: var(--ink-secondary);
+    }
+
+    .phone {
+      display: inline-flex;
+      align-items: center;
+      min-height: var(--touch);
+      padding: 0 var(--space-4);
+      border: 1px solid var(--line-strong);
+      border-radius: var(--radius-sm);
+      background: var(--paper-card);
+      color: var(--ink);
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+      transition:
+        transform var(--dur-state) var(--ease-out-quart),
+        border-color var(--dur-state) var(--ease-out-quart);
+    }
+
+    .phone:hover {
+      transform: translateY(-2px);
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .contact-sub {
+      font-size: var(--step--1);
+      color: var(--ink-secondary);
+    }
+
+    .contact ul {
+      display: grid;
+      gap: var(--space-3);
+      padding: 0;
+      margin: 0;
+      list-style: none;
+    }
+
+    .contact li a {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      min-height: var(--touch);
+      padding: var(--space-3) var(--space-4);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-sm);
+      background: var(--paper-card);
+      color: var(--ink);
+      font-size: var(--step--1);
+      font-weight: 600;
+      transition:
+        transform var(--dur-state) var(--ease-out-quart),
+        border-color var(--dur-state) var(--ease-out-quart);
+    }
+
+    .contact li a:hover {
+      transform: translateY(-2px);
+      border-color: var(--accent);
+    }
+
+    .contact img {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      object-fit: contain;
+      flex-shrink: 0;
+    }
+
+    /* ==========================================================================
+       8. EPILOGUE FOOTER ("THANK YOU!")
+       ========================================================================== */
+    footer {
+      padding: var(--space-7) var(--gutter) 0;
+      background: var(--paper);
+    }
+
+    .thanks {
+      position: relative;
+      max-width: 960px;
+      margin-inline: auto;
+      padding: clamp(36px, 6vw, 68px) var(--gutter);
+      background:
+        radial-gradient(80% 100% at 85% 15%, oklch(49.027% 0.09275 254.818 / 0.16), transparent 70%),
+        linear-gradient(180deg, var(--paper-card), var(--footer-bg));
+      border: 1px solid var(--line-strong);
+      border-radius: 24px;
+      color: var(--ink);
+      display: grid;
+      gap: var(--space-2);
+      box-shadow: 0 14px 36px oklch(24% 0.03 54 / 0.07);
+    }
+
+    .thanks h2 {
+      font: italic 700 var(--step-5) / 0.95 var(--font-display);
+      color: var(--accent);
+    }
+
+    .thanks p {
+      font: italic 600 var(--step-2) / 1.3 var(--font-display);
+      color: var(--ink-secondary);
+    }
+
+    .thanks p:first-of-type {
+      margin-top: var(--space-3);
+      font: 500 var(--step-0) / 1.65 var(--font-body);
+      color: var(--ink);
+    }
+
+    .credit {
+      padding: var(--space-5) var(--gutter);
+      background: var(--paper);
+      color: var(--ink-muted);
+      font-size: var(--step--2);
+      text-align: center;
+    }
+
+    /* ==========================================================================
+       9. LIGHTBOX DIALOG
+       ========================================================================== */
+    .lightbox {
+      max-width: min(94vw, 960px);
+      max-height: 92dvh;
+      padding: 0;
+      border: 1px solid var(--line-strong);
+      border-radius: var(--radius-md);
+      background: var(--paper-card);
+      color: var(--ink);
+      overflow: visible;
+    }
+
+    .lightbox::backdrop {
+      background: oklch(18% 0.03 var(--pine-hue) / 0.82);
+      backdrop-filter: blur(5px);
+    }
+
+    .lightbox img {
+      max-width: min(94vw, 960px);
+      max-height: 86dvh;
+      border-radius: var(--radius-md);
+      object-fit: contain;
+    }
+
+    .lightbox button {
+      position: absolute;
+      top: var(--space-3);
+      right: var(--space-3);
+      display: grid;
+      place-items: center;
+      width: var(--touch);
+      height: var(--touch);
+      padding: 0;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      background: var(--paper-card);
+      color: var(--ink);
+      font-size: 1.5rem;
+      line-height: 1;
+      box-shadow: 0 4px 12px oklch(22% 0.03 var(--pine-hue) / 0.12);
+      transition: transform var(--dur-state) var(--ease-out-quart);
+    }
+
+    .lightbox button:hover {
+      transform: scale(1.06);
+      border-color: var(--accent);
+    }
+
+    /* ==========================================================================
+       10. DESKTOP EDITORIAL SPREAD (>= 880px)
+       ========================================================================== */
+    @media (min-width: 880px) {
+      .hero {
+        grid-template-columns: minmax(0, 1.02fr) minmax(0, 0.98fr);
+        align-items: stretch;
+        gap: var(--space-8);
+        min-height: calc(100dvh - 80px);
+        padding-block: var(--space-7) var(--space-8);
+      }
+
+      .hero-visual {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .hero-photo {
+        flex: 1;
+        aspect-ratio: auto;
+        min-height: 560px;
+      }
+
+      .hero-editorial {
+        padding-block: var(--space-2);
+      }
+
+      .story-layout {
+        grid-template-columns: minmax(110px, 0.22fr) minmax(0, 0.78fr);
+        align-items: center;
+      }
+
+      .story-body {
+        padding: var(--space-7) var(--space-8);
+      }
+
+      .venue-media {
+        grid-template-columns: minmax(0, 1.18fr) minmax(0, 0.82fr);
+        align-items: stretch;
+      }
+
+      .contact ul {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- 1. ENVELOPE TEAR-STRIP & VERTICAL SPLIT-GATE OPENING -->
+  <div class="opening" id="opening" hidden>
+    <div class="gate-panel gate-panel--top" aria-hidden="true">
+      <span class="seal-emblem">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 10 12 5 2 10l10 5 10-5Z"/>
+          <path d="M6 12.5v4c3.3 2.4 8.7 2.4 12 0v-4"/>
+          <path d="M22 10v6"/>
+        </svg>
+      </span>
+      <span class="gate-meta">Lễ Tốt Nghiệp · Graduation</span>
+      <span class="seal-graduate">Nguyễn Thái Dương</span>
+      <span class="seal-sub">Information Technology</span>
+    </div>
+
+    <div class="gate-panel gate-panel--bottom" aria-hidden="true">
+      <span class="gate-meta">Thân mời</span>
+      <span class="gate-word" id="gate-guest">Ai đó</span>
+      <span class="gate-date">04 . 12 . 2026</span>
+    </div>
+
+    <div class="gate-seam" id="gate-seam">
+      <div class="tear-track" id="tear-track">
+        <span class="tear-perforation" aria-hidden="true"></span>
+        <span class="tear-cut" aria-hidden="true"></span>
+        <button class="tear-handle" id="open-button" type="button" aria-label="Kéo sang phải hoặc chạm hai lần để mở thiệp tốt nghiệp của Nguyễn Thái Dương">
+          <img id="tear-button-img" src="image/LHMO9061.PNG" alt="">
+        </button>
+        <span class="tear-hint" id="tear-hint" aria-hidden="true">Kéo sang phải để mở →</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- FLOATING SOUND CONTROL -->
+  <button class="music" type="button" id="music-button" aria-label="Nhạc nền" aria-pressed="false" hidden>
+    <span class="music-bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+    <span id="music-label">Nhạc nền</span>
+  </button>
+  <audio id="music" src="image/Cảm Ơn Người Đã Thức Cùng Tôi Phùng Khánh Linh Official Lyrics Video Themesong (1).mp3" preload="none" loop></audio>
+  <p class="sr-only" id="music-status" role="status"></p>
+
+  <!-- 2. MAIN EDITORIAL MAGAZINE -->
+  <main class="invite" id="invitation" tabindex="-1">
+    <div class="masthead">
+      <div class="masthead-brand">
+        <button class="hero-logo photo-button" type="button" data-photo aria-label="Xem logo trường">
+          <img src="https://res.cloudinary.com/deteblak9/image/upload/f_auto,q_auto,c_limit,w_1200/v1795067185/thiep/phuong/logo-1795067183455_t9cj8x.jpg" alt="Logo Trường Đại học Công nghệ Sài Gòn">
+        </button>
+        <div class="masthead-school">
+          <strong>Trường Đại Học Công Nghệ Sài Gòn</strong>
+          <span>Information Technology</span>
+        </div>
+      </div>
+      <span class="masthead-issue">Graduation Ceremony</span>
+    </div>
+
+    <header class="hero">
+      <figure class="hero-visual">
+        <button class="hero-photo photo-button" type="button" data-photo aria-label="Xem chân dung Nguyễn Thái Dương">
+          <img src="image/main.jpg" alt="Chân dung tốt nghiệp Nguyễn Thái Dương" fetchpriority="high">
+        </button>
+        <figcaption class="hero-caption">
+          <span>Chân dung tốt nghiệp</span>
+          <span>Niên khóa 2026</span>
+        </figcaption>
+      </figure>
+
+      <div class="hero-editorial">
+        <div class="hero-invite-block">
+          <span class="hero-invite-label" id="schedule-title">TRÂN TRỌNG KÍNH MỜI</span>
+          <p class="guest" id="guest-name">Ai đó</p>
+        </div>
+
+        <div class="hero-headline">
+          <p class="hero-invite-label">Đến tham dự lễ tốt nghiệp của</p>
+          <h1>
+            <span>Nguyễn Thái Dương</span>
+            <em>Kỹ sư Công nghệ Thông tin</em>
+          </h1>
+        </div>
+
+        <div class="hero-ceremony">
+          <div class="ceremony-when">
+            <time class="event-time" id="ceremony" datetime="2026-12-04T11:00:00+07:00">11:00, Thứ Sáu</time>
+            <p class="poster-date" aria-label="Ngày 04 tháng 12 năm 2026">04<i>.</i>12<i>.</i>2026</p>
+          </div>
+
+          <div class="countdown" hidden>
+            <span class="countdown-label">Our Graduation Day</span>
+            <div class="countdown-values" role="timer" aria-label="Thời gian đến lễ tốt nghiệp">
+              <span><b>00</b><small>Ngày</small></span>
+              <span><b>00</b><small>Giờ</small></span>
+              <span><b>00</b><small>Phút</small></span>
+              <span><b>00</b><small>Giây</small></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- 3. STORY / PERSONAL NOTE -->
+    <section class="story" aria-labelledby="story-title">
+      <div class="story-layout">
+        <div class="story-aside">
+          <h2 id="story-title"><span>Gửi</span><span>Bạn</span></h2>
+        </div>
+        <div class="story-body">
+          <p>Người ta thường nhìn trăng khuyết như một sự thiếu hụt, nhưng thực chất, đó vẫn là một vầng trăng nguyên vẹn đang chờ ánh sáng ghé qua. Hình ảnh ấy khiến em nghĩ nhiều hơn về hành trình trưởng thành của chính mình. Giữa những áp lực vô hình của tuổi trẻ, đã có lúc tôi vội vã muốn bản thân phải thật xuất sắc, phải sớm tìm ra câu trả lời cho mọi ngã rẽ để chứng minh giá trị với thế giới xung quanh. Nhưng rồi tôi hiểu ra, sự hoàn thiện không thể được ép chín trong ngày một ngày hai. Ai cũng có những vùng tối của sự non nớt, những năng lực còn ngủ yên và những hoài bão chưa kịp gọi tên.</p>
+          <p>Thay vì tự ti trước những phần "khuyết" của bản thân, điều ti cần làm là cho mình thời gian để trải nghiệm và thấu hiểu chính mình. Cũng như vầng trăng khuyết vẫn lặng lẽ tỏa sáng theo cách riêng, mỗi người đều có quyền bước vào hành trình cuộc đời ngay từ khi chưa hoàn hảo</p>
+          <p class="signature">Nguyễn Thái Dương</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. VENUE, LOGISTICS & CONTACT -->
+    <section class="details" aria-labelledby="venue-title">
+      <div class="venue">
+        <div class="venue-header">
+          <div class="venue-copy">
+            <h2 class="section-title" id="venue-title">Địa điểm</h2>
+            <p class="venue-intro">Hẹn gặp bạn tại Sảnh A(maybe) - Khuôn viên trường</p>
+            <p class="venue-school"><strong>Trường Đại Học Công Nghệ Sài Gòn</strong></p>
+            <p class="address">180 Cao Lỗ, Phường Chánh Hưng, TP. HCM</p>
+          </div>
+          <a class="btn-editorial" href="https://www.google.com/maps/dir/?api=1&amp;destination=Tr%C6%B0%E1%BB%9Dng+%C4%90%E1%BA%A1i+H%E1%BB%8Dc+C%C3%B4ng+Ngh%E1%BB%87+S%C3%A0i+G%C3%B2n+180+Cao+L%E1%BB%97" target="_blank" rel="noopener">Xem chỉ đường</a>
+        </div>
+
+        <div class="venue-media">
+          <div class="map">
+            <iframe loading="lazy" title="Bản đồ Trường Đại học Công nghệ Sài Gòn" src="https://maps.google.com/maps?q=Tr%C6%B0%E1%BB%9Dng+%C4%90%E1%BA%A1i+H%E1%BB%8Dc+C%C3%B4ng+Ngh%E1%BB%87+S%C3%A0i+G%C3%B2n+180+Cao+L%E1%BB%97&amp;t=k&amp;z=16&amp;output=embed"></iframe>
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=Tr%C6%B0%E1%BB%9Dng+%C4%90%E1%BA%A1i+H%E1%BB%8Dc+C%C3%B4ng+Ngh%E1%BB%87+S%C3%A0i+G%C3%B2n+180+Cao+L%E1%BB%97" target="_blank" rel="noopener">Mở trong Maps</a>
+          </div>
+
+          <div class="venue-guides">
+            <div class="guide-block">
+              <h3>Sơ đồ khuôn viên</h3>
+              <button class="photo-button" type="button" data-photo>
+                <img loading="lazy" src="https://res.cloudinary.com/deteblak9/image/upload/f_auto,q_auto,c_limit,w_1200/v1794913832/thiep/phuong/campusMap-1794913831063_lvhksc.jpg" alt="Sơ đồ khuôn viên Trường Đại học Công nghệ Sài Gòn">
+              </button>
+            </div>
+
+            <div class="guide-block">
+              <h3>Hướng dẫn gửi xe</h3>
+              <p>Nên gửi xe đối diện cổng chính </p>
+              <p>(Kinh nghiệm xương máu)</p>
+              <button class="photo-button" type="button" data-photo>
+                <img loading="lazy" src="https://res.cloudinary.com/deteblak9/image/upload/f_auto,q_auto,c_limit,w_1200/v1794913842/thiep/phuong/parking-1794913841378_e4rokr.jpg" alt="Bản đồ vị trí bãi gửi xe tại cổng chính và cổng sau">
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact">
+        <div class="contact-header">
+          <h2 class="section-title">Thông tin liên hệ</h2>
+          <p class="contact-phone-wrap">Gọi vào số: <a class="phone" href="tel:0835752745">0835752745</a></p>
+        </div>
+        <p class="contact-sub">Hoặc liên hệ qua:</p>
+        <ul>
+          <li><a href="https://www.facebook.com/duong.nguyen.359802/" target="_blank" rel="noopener"><img loading="lazy" src="https://res.cloudinary.com/deteblak9/image/upload/f_auto,q_auto,w_96/v1795064539/thiep/assets/media_1795064214433_b986b8db_e4vb58.webp" alt="Facebook:">Nguyễn Thái Dương</a></li>
+          <li><a href="https://www.instagram.com/gau_898/" target="_blank" rel="noopener"><img loading="lazy" src="https://res.cloudinary.com/deteblak9/image/upload/f_auto,q_auto,w_96/v1795064541/thiep/assets/media_1795064214451_ffa4a1a6_ju3xoh.jpg" alt="Instagram:">gau_898</a></li>
+          <li><a href="https://zalo.me/0835752745" target="_blank" rel="noopener"><img loading="lazy" src="https://res.cloudinary.com/deteblak9/image/upload/f_auto,q_auto,w_96/v1795064537/thiep/assets/media_1795064214432_697a0bf6_aoqpmk.png" alt="Zalo:">0835752745</a></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 5. FOOTER EPILOGUE -->
+    <footer>
+      <div class="thanks">
+  
+          <h2>Thank You!</h2>
+          <p>Nếu một ngày bạn cảm thấy mệt và xui vcl.</p>
+          <p>It's just a chapter</p>
+          <p>Not the whole story</p>
+
+      </div>
+      <p class="credit">Cacbon và Agon</p>
+    </footer>
+  </main>
+
+  <dialog class="lightbox" id="photos" aria-label="Ảnh phóng to">
+    <form method="dialog"><button type="submit" aria-label="Đóng ảnh" autofocus>×</button></form>
+    <img alt="">
+  </dialog>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/ScrollTrigger.min.js"></script>
+  <script>
+    // Optional ?to= guest personalization (defaults to "Ai đó")
+    const guestParam = new URLSearchParams(window.location.search).get("to");
+    if (guestParam && guestParam.trim()) {
+      const cleanGuest = guestParam.trim();
+      document.getElementById("guest-name").textContent = cleanGuest;
+      document.getElementById("gate-guest").textContent = cleanGuest;
+    }
+
+    const invitation = document.getElementById("invitation");
+    const opening = document.getElementById("opening");
+    const openButton = document.getElementById("open-button");
+    const tearTrack = document.getElementById("tear-track");
+    const tearHint = document.getElementById("tear-hint");
+    const tearButtonImg = document.getElementById("tear-button-img");
+    const gateSeam = document.getElementById("gate-seam");
+    const music = document.getElementById("music");
+    const musicButton = document.getElementById("music-button");
+    const musicLabel = document.getElementById("music-label");
+    const musicStatus = document.getElementById("music-status");
+
+    function playMusic() {
+      music.play().then(() => {
+        musicStatus.textContent = "";
+      }).catch(() => {
+        musicLabel.textContent = "Bật nhạc";
+        musicStatus.textContent = "Không phát được nhạc nền tự động. Bạn có thể chạm nút Bật nhạc.";
+      });
+    }
+
+    music.addEventListener("playing", () => {
+      musicButton.setAttribute("aria-pressed", "true");
+      musicLabel.textContent = "Đang phát";
+    });
+
+    for (const event of ["pause", "error"]) {
+      music.addEventListener(event, () => {
+        musicButton.setAttribute("aria-pressed", "false");
+        musicLabel.textContent = "Nhạc nền";
+      });
+    }
+
+    musicButton.addEventListener("click", () => music.paused ? playMusic() : music.pause());
+    invitation.inert = true;
+    opening.hidden = false;
+
+    const hasGSAP = typeof window.gsap !== "undefined";
+    if (hasGSAP && typeof window.ScrollTrigger !== "undefined") {
+      gsap.registerPlugin(ScrollTrigger);
+      gsap.defaults({ ease: "power2.out", duration: 0.65 });
+    }
+
+    // Subtle entrance on the closed envelope panels & tear strip
+    if (hasGSAP && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      gsap.from(".tear-track", {
+        scale: 0.95,
+        autoAlpha: 0,
+        duration: 0.7,
+        ease: "power3.out"
+      });
+      gsap.from(".gate-panel > *", {
+        y: 12,
+        autoAlpha: 0,
+        stagger: 0.05,
+        duration: 0.6,
+        ease: "power2.out"
+      });
+    }
+
+    function initScrollChoreography() {
+      if (!hasGSAP || typeof window.ScrollTrigger === "undefined") return;
+
+      const mm = gsap.matchMedia();
+      mm.add(
+        {
+          isDesktop: "(min-width: 880px)",
+          isMobile: "(max-width: 879px)",
+          reduceMotion: "(prefers-reduced-motion: reduce)"
+        },
+        (context) => {
+          const { reduceMotion } = context.conditions;
+          if (reduceMotion) return;
+
+          // Story letter reveal
+          gsap.from(".story-aside", {
+            x: -18,
+            autoAlpha: 0,
+            duration: 0.65,
+            scrollTrigger: {
+              trigger: ".story",
+              start: "top 82%",
+              toggleActions: "play none none none"
+            }
+          });
+
+          gsap.from(".story-body", {
+            y: 26,
+            autoAlpha: 0,
+            duration: 0.75,
+            scrollTrigger: {
+              trigger: ".story",
+              start: "top 78%",
+              toggleActions: "play none none none"
+            }
+          });
+
+          // Venue & guides reveal
+          gsap.from(".venue-header > *", {
+            y: 18,
+            autoAlpha: 0,
+            stagger: 0.1,
+            duration: 0.6,
+            scrollTrigger: {
+              trigger: ".venue",
+              start: "top 82%",
+              toggleActions: "play none none none"
+            }
+          });
+
+          ScrollTrigger.batch(".map, .guide-block, .contact li", {
+            start: "top 88%",
+            onEnter: (batch) => {
+              gsap.from(batch, {
+                y: 22,
+                autoAlpha: 0,
+                stagger: 0.08,
+                duration: 0.6,
+                overwrite: "auto"
+              });
+            },
+            once: true
+          });
+
+          // Epilogue footer reveal
+          gsap.from(".thanks > *", {
+            y: 20,
+            autoAlpha: 0,
+            stagger: 0.1,
+            duration: 0.7,
+            scrollTrigger: {
+              trigger: ".thanks",
+              start: "top 85%",
+              toggleActions: "play none none none"
+            }
+          });
+
+          ScrollTrigger.refresh();
+        }
+      );
+    }
+
+    // Envelope Tear Drag + Rolling Button + Vertical Gate Reveal
+    const TEAR_THRESHOLD = 0.78;
+    const FULL_TURNS_DEG = 720; // Two smooth clockwise turns across full track
+    let isOpened = false;
+    let isDragging = false;
+    let activePointerId = null;
+    let startClientX = 0;
+    let startOffsetX = 0;
+    let currentX = 0;
+    let maxDragX = 1;
+    let trackLeftPx = 0;
+    let tapCount = 0;
+
+    if (hasGSAP) {
+      gsap.set(tearButtonImg, { scale: 1.06 });
+    }
+
+    const setHandleX = hasGSAP
+      ? gsap.quickSetter(openButton, "x", "px")
+      : (val) => { openButton.style.transform = `translate3d(${val}px, 0, 0)`; };
+
+    const setImgRotation = hasGSAP
+      ? gsap.quickSetter(tearButtonImg, "rotation", "deg")
+      : (deg) => { tearButtonImg.style.transform = `scale(1.06) rotate(${deg}deg)`; };
+
+    function measureMaxDrag() {
+      const style = window.getComputedStyle(tearTrack);
+      const padX = parseFloat(style.paddingLeft) + parseFloat(style.paddingRight);
+      trackLeftPx = tearTrack.getBoundingClientRect().left;
+      return Math.max(1, tearTrack.clientWidth - openButton.offsetWidth - padX);
+    }
+
+    function applyTearVisual(xPx, fullViewportSeam = false) {
+      currentX = xPx;
+      const progress = Math.min(1, Math.max(0, xPx / maxDragX));
+      setHandleX(xPx);
+      setImgRotation(progress * FULL_TURNS_DEG);
+      opening.style.setProperty("--tear-progress", progress.toFixed(4));
+
+      if (fullViewportSeam) {
+        opening.style.setProperty("--seam-clip-right", "0%");
+      } else if (progress <= 0.001) {
+        opening.style.setProperty("--seam-clip-right", "100%");
+      } else {
+        const vw = Math.max(1, window.innerWidth);
+        const handleCenterX = trackLeftPx + 34 + xPx;
+        const clipRight = Math.max(0, Math.min(100, 100 - (handleCenterX / vw) * 100));
+        opening.style.setProperty("--seam-clip-right", `${clipRight.toFixed(2)}%`);
+      }
+
+      tearHint.style.opacity = String(Math.max(0, 1 - progress * 2.1));
+
+      if (progress >= TEAR_THRESHOLD) {
+        tearTrack.classList.add("is-ready");
+      } else {
+        tearTrack.classList.remove("is-ready");
+      }
+      return progress;
+    }
+
+    function commitOpenReveal() {
+      if (isOpened) return;
+      isOpened = true;
+
+      // Synchronous audio activation inside trusted pointerup / keydown / click handler
+      playMusic();
+      musicButton.hidden = false;
+
+      const finishReveal = () => {
+        opening.hidden = true;
+        invitation.inert = false;
+        window.scrollTo(0, 0);
+        invitation.focus({ preventScroll: true });
+        initScrollChoreography();
+      };
+
+      const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (hasGSAP && !prefersReduced) {
+        maxDragX = measureMaxDrag();
+        const proxy = { x: currentX };
+
+        // Prepare hero elements behind the top/bottom envelope doors
+        gsap.set(".hero-photo img", { scale: 1.09 });
+        gsap.set(".masthead, .hero-editorial > *", { y: 22, autoAlpha: 0 });
+
+        const revealTl = gsap.timeline({ onComplete: finishReveal });
+        revealTl
+          .to(proxy, {
+            x: maxDragX,
+            duration: 0.18,
+            ease: "power2.out",
+            onUpdate: () => applyTearVisual(proxy.x),
+            onComplete: () => applyTearVisual(maxDragX, true)
+          })
+          .to(gateSeam, {
+            scale: 0.96,
+            autoAlpha: 0,
+            duration: 0.24,
+            ease: "power2.in"
+          }, "+=0.04")
+          .to(".gate-panel--top", {
+            yPercent: -102,
+            duration: 0.94,
+            ease: "expo.inOut"
+          }, "-=0.06")
+          .to(".gate-panel--bottom", {
+            yPercent: 102,
+            duration: 0.94,
+            ease: "expo.inOut"
+          }, "<")
+          .to(".hero-photo img", {
+            scale: 1,
+            duration: 1.15,
+            ease: "expo.out",
+            clearProps: "transform"
+          }, "<0.18")
+          .to(".masthead, .hero-editorial > *", {
+            y: 0,
+            autoAlpha: 1,
+            stagger: 0.09,
+            duration: 0.72,
+            ease: "power3.out",
+            clearProps: "transform,opacity,visibility"
+          }, "<0.22");
+      } else {
+        opening.classList.add("is-opening");
+        setTimeout(finishReveal, 160);
+      }
+    }
+
+    let activeSpringTween = null;
+
+    function killSpringTween() {
+      if (activeSpringTween) {
+        activeSpringTween.kill();
+        activeSpringTween = null;
+      }
+    }
+
+    function springBackToStart(nudgeFirstTap = false) {
+      killSpringTween();
+      if (!hasGSAP || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        applyTearVisual(0);
+        return;
+      }
+      const proxy = { x: currentX };
+      if (nudgeFirstTap) {
+        tearHint.textContent = "Kéo sang phải để mở →";
+        activeSpringTween = gsap.timeline({ onComplete: () => { activeSpringTween = null; } });
+        activeSpringTween
+          .to(proxy, {
+            x: Math.min(34, maxDragX * 0.16),
+            duration: 0.2,
+            ease: "power2.out",
+            onUpdate: () => applyTearVisual(proxy.x)
+          })
+          .to(proxy, {
+            x: 0,
+            duration: 0.36,
+            ease: "power3.out",
+            onUpdate: () => applyTearVisual(proxy.x)
+          });
+      } else {
+        activeSpringTween = gsap.to(proxy, {
+          x: 0,
+          duration: 0.38,
+          ease: "power3.out",
+          onUpdate: () => applyTearVisual(proxy.x),
+          onComplete: () => { activeSpringTween = null; }
+        });
+      }
+    }
+
+    openButton.addEventListener("pointerdown", (event) => {
+      if (isOpened) return;
+      if (event.pointerType === "mouse" && event.button !== 0) return;
+
+      // Start buffering audio during drag so playback is instant on release
+      if (music.preload === "none") {
+        music.preload = "auto";
+        music.load();
+      }
+
+      killSpringTween();
+      maxDragX = measureMaxDrag();
+      isDragging = true;
+      activePointerId = event.pointerId;
+      startClientX = event.clientX;
+      startOffsetX = currentX;
+      openButton.classList.add("is-dragging");
+      try {
+        openButton.setPointerCapture(event.pointerId);
+      } catch (_) {}
+    });
+
+    openButton.addEventListener("pointermove", (event) => {
+      if (!isDragging || event.pointerId !== activePointerId || isOpened) return;
+      const deltaX = event.clientX - startClientX;
+      const clampedX = Math.min(maxDragX, Math.max(0, startOffsetX + deltaX));
+      applyTearVisual(clampedX);
+    });
+
+    function finishPointerGesture(event, cancelled = false) {
+      if (!isDragging || event.pointerId !== activePointerId || isOpened) return;
+      isDragging = false;
+      activePointerId = null;
+      openButton.classList.remove("is-dragging");
+      try {
+        if (openButton.hasPointerCapture(event.pointerId)) {
+          openButton.releasePointerCapture(event.pointerId);
+        }
+      } catch (_) {}
+
+      if (cancelled) {
+        springBackToStart(false);
+        return;
+      }
+
+      const movedDistance = Math.abs(event.clientX - startClientX);
+      const progress = currentX / maxDragX;
+
+      if (progress >= TEAR_THRESHOLD) {
+        commitOpenReveal();
+      } else if (movedDistance < 8) {
+        tapCount += 1;
+        if (tapCount >= 2) {
+          commitOpenReveal();
+        } else {
+          springBackToStart(true);
+        }
+      } else {
+        tapCount = 0;
+        springBackToStart(false);
+      }
+    }
+
+    openButton.addEventListener("pointerup", (e) => finishPointerGesture(e, false));
+    openButton.addEventListener("pointercancel", (e) => finishPointerGesture(e, true));
+    openButton.addEventListener("lostpointercapture", (e) => finishPointerGesture(e, true));
+
+    // Keyboard & Assistive Technology (VoiceOver / TalkBack synthesized click) support
+    openButton.addEventListener("keydown", (event) => {
+      if (isOpened) return;
+      if (event.key === "Enter" || event.key === " " || event.key === "ArrowRight") {
+        event.preventDefault();
+        maxDragX = measureMaxDrag();
+        commitOpenReveal();
+      }
+    });
+
+    openButton.addEventListener("click", (event) => {
+      // Synthesized click from screen reader / assistive tech (detail === 0)
+      if (!isOpened && event.detail === 0) {
+        maxDragX = measureMaxDrag();
+        commitOpenReveal();
+      }
+    });
+
+    // Countdown timer
+    const countdown = document.querySelector(".countdown");
+    const countdownFields = countdown.querySelectorAll("b");
+    const ceremonyTime = Date.parse(document.getElementById("ceremony").dateTime);
+    function updateCountdown() {
+      const seconds = Math.max(0, Math.ceil((ceremonyTime - Date.now()) / 1000));
+      const values = [
+        Math.floor(seconds / 86400),
+        Math.floor(seconds / 3600) % 24,
+        Math.floor(seconds / 60) % 60,
+        seconds % 60
+      ];
+      countdownFields.forEach((field, index) => {
+        field.textContent = String(values[index]).padStart(2, "0");
+      });
+      if (seconds > 0) setTimeout(updateCountdown, 1000);
+    }
+    updateCountdown();
+    countdown.hidden = false;
+
+    // Photo Lightbox
+    const photos = document.getElementById("photos");
+    const largePhoto = photos.querySelector("img");
+    invitation.addEventListener("click", (event) => {
+      const button = event.target.closest("[data-photo]");
+      if (!button) return;
+      const image = button.querySelector("img");
+      largePhoto.src = image.currentSrc || image.src;
+      largePhoto.alt = image.alt;
+      photos.showModal();
+    });
+    photos.addEventListener("click", (event) => {
+      if (event.target === photos) photos.close();
+    });
+  </script>
+</body>
+</html>
