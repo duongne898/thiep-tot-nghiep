@@ -84,7 +84,8 @@
     html {
       background: var(--paper);
       color: var(--ink);
-      scroll-behavior: smooth;
+      scroll-behavior: auto;
+      scrollbar-gutter: stable;
     }
 
     body {
@@ -183,11 +184,43 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
+    }
+
+    .photo-button:not(.hero-photo) img {
       transition: transform 700ms var(--ease-out-expo);
     }
 
-    .photo-button:hover img {
+    .photo-button:not(.hero-photo):hover img {
       transform: scale(1.03);
+    }
+
+    /* Sunlit-Ochre Reading Progress Hairline */
+    .scroll-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 42;
+      height: 2.5px;
+      background: linear-gradient(90deg, var(--accent), oklch(68% 0.13 72));
+      transform-origin: left center;
+      transform: scaleX(0);
+      pointer-events: none;
+      will-change: transform;
+    }
+
+    /* Diacritic-safe & Swash-safe Editorial Mask Wrapper */
+    .reveal-mask {
+      display: block;
+      overflow: clip;
+      padding-block: 0.2em;
+      margin-block: -0.2em;
+      padding-inline-end: 0.12em;
+    }
+
+    .reveal-line {
+      display: block;
+      will-change: transform, opacity;
     }
 
     /* ==========================================================================
@@ -697,10 +730,30 @@
     }
 
     .hero-invite-block {
+      position: relative;
       display: grid;
       gap: var(--space-2);
       padding-bottom: var(--space-5);
-      border-bottom: 1px solid var(--line);
+    }
+
+    .hero-invite-block::after,
+    .hero-ceremony::before {
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: var(--line);
+      transform-origin: left center;
+      transform: scaleX(var(--rule-scale, 1));
+      content: "";
+    }
+
+    .hero-invite-block::after {
+      bottom: 0;
+    }
+
+    .hero-ceremony::before {
+      top: 0;
     }
 
     .hero-invite-label {
@@ -726,25 +779,23 @@
       gap: var(--space-1);
     }
 
-    .hero-headline h1 span {
-      display: block;
+    .hero-headline h1 > span {
       font: 700 var(--step-5) / 0.92 var(--font-display);
       letter-spacing: -0.02em;
       color: var(--ink);
     }
 
-    .hero-headline h1 em {
-      display: block;
+    .hero-headline h1 > em {
       font: italic 500 var(--step-2) / 1.15 var(--font-display);
       color: var(--ink-secondary);
     }
 
     /* Typographic Poster Date & Minimal Countdown (No 31-day grid) */
     .hero-ceremony {
+      position: relative;
       display: grid;
       gap: var(--space-4);
       padding-top: var(--space-5);
-      border-top: 1px solid var(--line);
     }
 
     .ceremony-when {
@@ -1515,6 +1566,7 @@
 
   <!-- 2. MAIN EDITORIAL MAGAZINE -->
   <main class="invite" id="invitation" tabindex="-1">
+    <div class="scroll-progress" id="scroll-progress" aria-hidden="true"></div>
     <div class="masthead">
       <div class="masthead-brand">
         <button class="hero-logo photo-button" type="button" data-photo aria-label="Xem logo trường">
@@ -1542,21 +1594,21 @@
       <div class="hero-editorial">
         <div class="hero-invite-block">
           <span class="hero-invite-label" id="schedule-title">TRÂN TRỌNG KÍNH MỜI</span>
-          <p class="guest" id="guest-name">Ai đó</p>
+          <p class="guest"><span class="reveal-mask"><span class="reveal-line" id="guest-name">Ai đó</span></span></p>
         </div>
 
         <div class="hero-headline">
           <p class="hero-invite-label">Đến tham dự lễ tốt nghiệp của</p>
           <h1>
-            <span>Nguyễn Thái Dương</span>
-            <em>Kỹ sư Công nghệ Thông tin</em>
+            <span class="reveal-mask"><span class="reveal-line">Nguyễn Thái Dương</span></span>
+            <em class="reveal-mask"><span class="reveal-line">Kỹ sư Công nghệ Thông tin</span></em>
           </h1>
         </div>
 
         <div class="hero-ceremony">
           <div class="ceremony-when">
             <time class="event-time" id="ceremony" datetime="2026-12-04T11:00:00+07:00">11:00, Thứ Sáu</time>
-            <p class="poster-date" aria-label="Ngày 04 tháng 12 năm 2026">04<i>.</i>12<i>.</i>2026</p>
+            <p class="poster-date" aria-label="Ngày 04 tháng 12 năm 2026"><span class="reveal-mask"><span class="reveal-line">04<i>.</i>12<i>.</i>2026</span></span></p>
           </div>
 
           <div class="countdown" hidden>
@@ -1591,7 +1643,7 @@
       <div class="rsvp-card" id="rsvp-card">
         <span class="rsvp-kicker">✦ Lời hẹn ngày tốt nghiệp ✦</span>
         <h2 class="rsvp-question" id="rsvp-question">Bạn có đồng ý đến chung vui lễ tốt nghiệp cùng mình không?</h2>
-        <p class="rsvp-sub" id="rsvp-sub">Xác nhận tham dự để mở khóa bản đồ địa điểm, sơ đồ trường và hướng dẫn gửi xe nhé!</p>
+        <p class="rsvp-sub" id="rsvp-sub"></p>
 
         <div class="question-arena" id="question-arena">
           <button class="btn-rsvp-yes" id="btn-rsvp-yes" type="button">Chắc chắn có mặt! 🎓</button>
@@ -1601,7 +1653,7 @@
         <div class="rsvp-confirmed" id="rsvp-confirmed" hidden>
           <span class="rsvp-confirmed-badge">✓ Đã chốt kèo tham dự</span>
           <h3 id="rsvp-thanks-title">Cảm ơn vì đã đồng ý đến chung vui!</h3>
-          <p>Thông tin địa điểm, sơ đồ khuôn viên và bãi gửi xe đã được mở khóa ngay bên dưới ↓</p>
+          <p>Sự có mặt của bạn là một bức ảnh trong máy của mình</p>
         </div>
       </div>
     </section>
@@ -1662,14 +1714,12 @@
     <!-- 5. FOOTER EPILOGUE -->
     <footer>
       <div class="thanks">
-  
-          <h2>Thank You!</h2>
+          <h2><span class="reveal-mask"><span class="reveal-line">Thank You!</span></span></h2>
           <p>Nếu một ngày bạn cảm thấy mệt và xui vcl.</p>
           <p>It's just a chapter</p>
           <p>Not the whole story</p>
-
       </div>
-      <p class="credit">Cacbon và Agon</p>
+      <p class="credit">Cacbon, Agon và bạn Phương</p>
     </footer>
   </main>
 
@@ -1680,8 +1730,10 @@
     <img alt="">
   </dialog>
 
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/Flip.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/ScrollToPlugin.min.js"></script>
   <script>
     // Optional ?to= guest personalization (defaults to "Ai đó")
     const guestParam = new URLSearchParams(window.location.search).get("to");
@@ -1756,8 +1808,11 @@
     opening.hidden = false;
 
     const hasGSAP = typeof window.gsap !== "undefined";
-    if (hasGSAP && typeof window.ScrollTrigger !== "undefined") {
-      gsap.registerPlugin(ScrollTrigger);
+    const hasFlip = typeof window.Flip !== "undefined";
+    const hasScrollTo = typeof window.ScrollToPlugin !== "undefined";
+    if (hasGSAP) {
+      const plugins = [window.ScrollTrigger, window.Flip, window.ScrollToPlugin].filter(Boolean);
+      if (plugins.length) gsap.registerPlugin(...plugins);
       gsap.defaults({ ease: "power2.out", duration: 0.65 });
     }
 
@@ -1786,17 +1841,48 @@
         {
           isDesktop: "(min-width: 880px)",
           isMobile: "(max-width: 879.98px)",
+          canHover: "(hover: hover) and (pointer: fine)",
           reduceMotion: "(prefers-reduced-motion: reduce)"
         },
         (context) => {
-          const { isDesktop, reduceMotion } = context.conditions;
+          const { isDesktop, canHover, reduceMotion } = context.conditions;
           if (reduceMotion) return;
 
-          // Story letter reveal (slides horizontally on desktop 2-col, rises vertically on mobile 1-col)
+          // 1. Sunlit-Ochre Top Reading Progress Hairline
+          gsap.to("#scroll-progress", {
+            scaleX: 1,
+            ease: "none",
+            scrollTrigger: {
+              trigger: "#invitation",
+              start: "top top",
+              end: "bottom bottom",
+              scrub: 0.15
+            }
+          });
+
+          // 2. Hero Portrait Optical Scrub Parallax
+          gsap.fromTo(
+            ".hero-photo img",
+            { yPercent: -4, scale: 1.08 },
+            {
+              yPercent: 5,
+              scale: 1.08,
+              ease: "none",
+              scrollTrigger: {
+                trigger: ".hero",
+                start: "top top",
+                end: "bottom top",
+                scrub: 0.4
+              }
+            }
+          );
+
+          // 3. Section 3 ("Gửi Bạn") — Distinct Paper Unfold & Signature Choreography
           gsap.from(".story-aside", {
-            ...(isDesktop ? { x: -18 } : { y: 16 }),
+            ...(isDesktop ? { x: -22 } : { y: 16 }),
             autoAlpha: 0,
-            duration: 0.65,
+            duration: 0.75,
+            ease: "expo.out",
             scrollTrigger: {
               trigger: ".story",
               start: "top 82%",
@@ -1805,9 +1891,12 @@
           });
 
           gsap.from(".story-body", {
-            y: 26,
+            y: 22,
             autoAlpha: 0,
-            duration: 0.75,
+            clipPath: "inset(0% 0% 10% 0% round 12px)",
+            duration: 0.85,
+            ease: "expo.out",
+            clearProps: "clipPath,transform",
             scrollTrigger: {
               trigger: ".story",
               start: "top 78%",
@@ -1815,10 +1904,27 @@
             }
           });
 
-          gsap.from(".rsvp-card", {
-            y: 24,
+          gsap.from(".story-body .signature", {
+            y: 12,
             autoAlpha: 0,
-            duration: 0.7,
+            duration: 0.65,
+            delay: 0.18,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: ".story-body .signature",
+              start: "top 92%",
+              toggleActions: "play none none none"
+            }
+          });
+
+          // 4. RSVP Interactive Card Entrance
+          gsap.from(".rsvp-card", {
+            y: 26,
+            scale: 0.98,
+            autoAlpha: 0,
+            duration: 0.75,
+            ease: "expo.out",
+            clearProps: "transform",
             scrollTrigger: {
               trigger: ".rsvp-gate",
               start: "top 84%",
@@ -1826,22 +1932,72 @@
             }
           });
 
-          // Epilogue footer reveal
-          gsap.from(".thanks > *", {
-            y: 20,
-            autoAlpha: 0,
-            stagger: 0.1,
-            duration: 0.7,
+          // 5. Epilogue Footer — Scrubbed Card Settling + Swash-Safe Masked Title
+          gsap.from(".thanks", {
+            scale: 0.96,
+            y: 18,
+            ease: "none",
+            scrollTrigger: {
+              trigger: "footer",
+              start: "top 95%",
+              end: "top 70%",
+              scrub: 0.4
+            }
+          });
+
+          const thanksTl = gsap.timeline({
             scrollTrigger: {
               trigger: ".thanks",
-              start: "top 85%",
+              start: "top 82%",
               toggleActions: "play none none none"
             }
           });
+          thanksTl
+            .from(".thanks h2 .reveal-line", {
+              yPercent: 108,
+              autoAlpha: 0,
+              duration: 0.8,
+              ease: "expo.out"
+            })
+            .from(".thanks p", {
+              y: 16,
+              autoAlpha: 0,
+              stagger: 0.1,
+              duration: 0.6,
+              ease: "power2.out"
+            }, "-=0.45");
+
+          // 6. Desktop-Only Subtle Magnetic Pull on Primary CTAs (gsap.quickTo)
+          if (canHover) {
+            const magnetCleanups = [];
+            document.querySelectorAll("#btn-rsvp-yes, .btn-editorial").forEach((btn) => {
+              const xTo = gsap.quickTo(btn, "x", { duration: 0.35, ease: "power3.out" });
+              const yTo = gsap.quickTo(btn, "y", { duration: 0.35, ease: "power3.out" });
+              const onMove = (e) => {
+                const rect = btn.getBoundingClientRect();
+                const relX = (e.clientX - (rect.left + rect.width * 0.5)) / (rect.width * 0.5);
+                const relY = (e.clientY - (rect.top + rect.height * 0.5)) / (rect.height * 0.5);
+                xTo(gsap.utils.clamp(-7, 7, relX * 7));
+                yTo(gsap.utils.clamp(-7, 7, relY * 7));
+              };
+              const onLeave = () => {
+                xTo(0);
+                yTo(0);
+              };
+              btn.addEventListener("pointermove", onMove);
+              btn.addEventListener("pointerleave", onLeave);
+              magnetCleanups.push(() => {
+                btn.removeEventListener("pointermove", onMove);
+                btn.removeEventListener("pointerleave", onLeave);
+              });
+            });
+            return () => magnetCleanups.forEach((fn) => fn());
+          }
 
           ScrollTrigger.refresh();
         }
       );
+      ScrollTrigger.refresh();
     }
 
     // Full-Screen Envelope Tear Swipe (Right -> Left) + Rolling Button + Pointer-Aware Auto-Burst Reveal
@@ -1948,8 +2104,10 @@
         const proxy = { travel: currentTravel };
 
         // Prepare hero elements behind the top/bottom envelope doors
-        gsap.set(".hero-photo img", { scale: 1.09 });
-        gsap.set(".masthead, .hero-editorial > *", { y: 22, autoAlpha: 0 });
+        gsap.set(".hero-photo img", { scale: 1.16 });
+        gsap.set(".hero-editorial", { "--rule-scale": 0 });
+        gsap.set(".masthead, .hero-caption, .hero-invite-label, .event-time, .countdown", { y: 18, autoAlpha: 0 });
+        gsap.set(".hero .reveal-line", { yPercent: 112, autoAlpha: 0 });
 
         const revealTl = gsap.timeline({ onComplete: finishReveal });
         revealTl
@@ -1977,20 +2135,41 @@
             ease: "expo.inOut"
           }, "<")
           .to(".hero-photo img", {
-            scale: 1,
-            duration: 1.15,
-            ease: "expo.out",
-            clearProps: "transform"
-          }, "<0.18")
-          .to(".masthead, .hero-editorial > *", {
+            scale: 1.08,
+            duration: 1.2,
+            ease: "expo.out"
+          }, "<0.16")
+          .to(".masthead, .hero-caption, .hero-invite-label, .event-time", {
             y: 0,
             autoAlpha: 1,
-            stagger: 0.09,
-            duration: 0.72,
+            stagger: 0.06,
+            duration: 0.65,
             ease: "power3.out",
             clearProps: "transform,opacity,visibility"
-          }, "<0.22");
+          }, "<0.14")
+          .to(".hero-editorial", {
+            "--rule-scale": 1,
+            duration: 0.9,
+            ease: "expo.out"
+          }, "<0.12")
+          .to(".hero .reveal-line", {
+            yPercent: 0,
+            autoAlpha: 1,
+            stagger: 0.09,
+            duration: 0.85,
+            ease: "expo.out",
+            clearProps: "transform,opacity,visibility"
+          }, "<0.08")
+          .to(".countdown", {
+            y: 0,
+            autoAlpha: 1,
+            duration: 0.65,
+            ease: "power3.out",
+            clearProps: "transform,opacity,visibility",
+            onStart: () => startCountdownRollUp()
+          }, "<0.2");
       } else {
+        startCountdownRollUp();
         opening.classList.add("is-opening");
         setTimeout(finishReveal, 160);
       }
@@ -2173,24 +2352,62 @@
       }
     });
 
-    // Countdown timer
+    // Countdown timer (with animated GSAP roll-up on hero entrance)
     const countdown = document.querySelector(".countdown");
     const countdownFields = countdown.querySelectorAll("b");
     const ceremonyTime = Date.parse(document.getElementById("ceremony").dateTime);
-    function updateCountdown() {
+    let countdownTimerId = null;
+
+    function computeCountdownValues() {
       const seconds = Math.max(0, Math.ceil((ceremonyTime - Date.now()) / 1000));
-      const values = [
-        Math.floor(seconds / 86400),
-        Math.floor(seconds / 3600) % 24,
-        Math.floor(seconds / 60) % 60,
-        seconds % 60
-      ];
+      return {
+        seconds,
+        values: [
+          Math.floor(seconds / 86400),
+          Math.floor(seconds / 3600) % 24,
+          Math.floor(seconds / 60) % 60,
+          seconds % 60
+        ]
+      };
+    }
+
+    function updateCountdown() {
+      const { seconds, values } = computeCountdownValues();
       countdownFields.forEach((field, index) => {
         field.textContent = String(values[index]).padStart(2, "0");
       });
-      if (seconds > 0) setTimeout(updateCountdown, 1000);
+      if (seconds > 0) {
+        countdownTimerId = setTimeout(updateCountdown, 1000);
+      }
     }
-    updateCountdown();
+
+    function startCountdownRollUp() {
+      if (countdownTimerId) clearTimeout(countdownTimerId);
+      const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (!hasGSAP || prefersReduced) {
+        updateCountdown();
+        return;
+      }
+      const { values: target } = computeCountdownValues();
+      const counterProxy = { d: 0, h: 0, m: 0, s: 0 };
+      gsap.to(counterProxy, {
+        d: target[0],
+        h: target[1],
+        m: target[2],
+        s: target[3],
+        duration: 1.15,
+        ease: "power3.out",
+        onUpdate: () => {
+          const cur = [counterProxy.d, counterProxy.h, counterProxy.m, counterProxy.s];
+          countdownFields.forEach((field, idx) => {
+            field.textContent = String(Math.round(cur[idx])).padStart(2, "0");
+          });
+        },
+        onComplete: () => {
+          updateCountdown();
+        }
+      });
+    }
     countdown.hidden = false;
 
     // Interactive RSVP Question Gate (Dodging "No" + Confetti + Unlock Section 4)
@@ -2397,24 +2614,94 @@
         ScrollTrigger.refresh();
       }
 
-      setTimeout(() => {
-        venueSection.scrollIntoView({ behavior: prefersReduced ? "auto" : "smooth", block: "start" });
-      }, 320);
+      if (hasGSAP && hasScrollTo && !prefersReduced) {
+        gsap.to(window, {
+          duration: 0.95,
+          delay: 0.18,
+          scrollTo: { y: venueSection, offsetY: 16, autoKill: true },
+          ease: "power3.inOut"
+        });
+      } else {
+        setTimeout(() => {
+          venueSection.scrollIntoView({ behavior: prefersReduced ? "auto" : "smooth", block: "start" });
+        }, 280);
+      }
     });
 
-    // Photo Lightbox
+    // Photo Lightbox with GSAP Flip Shared-Element Zoom
     const photos = document.getElementById("photos");
     const largePhoto = photos.querySelector("img");
+    const closePhotoForm = photos.querySelector("form");
+    const closePhotoBtn = photos.querySelector("button");
+    let activeThumbImg = null;
+    let isClosingLightbox = false;
+
     invitation.addEventListener("click", (event) => {
       const button = event.target.closest("[data-photo]");
       if (!button) return;
       const image = button.querySelector("img");
+      if (!image) return;
+
+      activeThumbImg = image;
+      isClosingLightbox = false;
+      const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const canFlip = hasGSAP && hasFlip && !prefersReduced && image.complete && image.naturalWidth > 0;
+      const thumbState = canFlip ? Flip.getState(image) : null;
+
       largePhoto.src = image.currentSrc || image.src;
       largePhoto.alt = image.alt;
+      gsap.set(largePhoto, { clearProps: "all" });
       photos.showModal();
+
+      if (thumbState) {
+        gsap.fromTo(closePhotoBtn, { autoAlpha: 0, scale: 0.85 }, { autoAlpha: 1, scale: 1, duration: 0.3, delay: 0.12 });
+        Flip.from(thumbState, {
+          targets: largePhoto,
+          duration: 0.48,
+          ease: "expo.out",
+          scale: true,
+          clearProps: "transform"
+        });
+      }
     });
+
+    function closeLightboxWithFlip() {
+      if (!photos.open || isClosingLightbox) return;
+      const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const thumbRect = activeThumbImg ? activeThumbImg.getBoundingClientRect() : null;
+      const thumbInView = thumbRect && thumbRect.bottom > 0 && thumbRect.top < window.innerHeight;
+
+      if (hasGSAP && hasFlip && !prefersReduced && activeThumbImg && thumbInView) {
+        isClosingLightbox = true;
+        gsap.to(closePhotoBtn, { autoAlpha: 0, duration: 0.16 });
+        Flip.fit(largePhoto, activeThumbImg, {
+          scale: true,
+          duration: 0.34,
+          ease: "power3.inOut",
+          onComplete: () => {
+            photos.close();
+            gsap.set([largePhoto, closePhotoBtn], { clearProps: "all" });
+            isClosingLightbox = false;
+          }
+        });
+      } else {
+        photos.close();
+        if (hasGSAP) gsap.set([largePhoto, closePhotoBtn], { clearProps: "all" });
+      }
+    }
+
+    closePhotoForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+      closeLightboxWithFlip();
+    });
+
+    photos.addEventListener("cancel", (event) => {
+      event.preventDefault();
+      closeLightboxWithFlip();
+    });
+
     photos.addEventListener("click", (event) => {
-      if (event.target === photos) photos.close();
+      if (event.target === photos) closeLightboxWithFlip();
     });
   </script>
 </body>
