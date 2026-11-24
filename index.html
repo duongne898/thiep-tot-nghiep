@@ -891,6 +891,183 @@
     }
 
     /* ==========================================================================
+       5B. INTERACTIVE RSVP GATE (PLAYFUL DODGING "NO" + CONFETTI UNLOCK)
+       ========================================================================== */
+    .rsvp-gate {
+      padding: var(--space-8) var(--gutter);
+      background: var(--paper);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .rsvp-card {
+      position: relative;
+      max-width: 760px;
+      margin-inline: auto;
+      padding: clamp(28px, 5vw, 48px) clamp(18px, 4vw, 40px);
+      border: 1px solid var(--line-strong);
+      border-radius: var(--radius-md);
+      background:
+        radial-gradient(circle at 50% 0%, oklch(96% 0.024 74 / 0.55), transparent 70%),
+        var(--paper-card);
+      text-align: center;
+      display: grid;
+      gap: var(--space-4);
+      box-shadow: 0 12px 32px oklch(24% 0.03 54 / 0.06);
+      overflow: hidden;
+    }
+
+    .rsvp-kicker {
+      font-size: var(--step--2);
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    .rsvp-question {
+      max-width: 28ch;
+      margin-inline: auto;
+      font: 700 clamp(1.65rem, 4.5vw, 2.45rem) / 1.18 var(--font-display);
+      color: var(--ink);
+      text-wrap: balance;
+    }
+
+    .rsvp-sub {
+      max-width: 48ch;
+      margin-inline: auto;
+      font-size: var(--step--1);
+      color: var(--ink-secondary);
+    }
+
+    .question-arena {
+      position: relative;
+      width: 100%;
+      min-height: 200px;
+      margin-top: var(--space-2);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-4);
+      padding: 40px 12px 20px;
+    }
+
+    .btn-rsvp-yes {
+      position: relative;
+      z-index: 3;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-2);
+      min-height: 50px;
+      padding: 0 var(--space-6);
+      border: 1px solid var(--pine-deep);
+      border-radius: 999px;
+      background: var(--pine-deep);
+      color: var(--paper-card);
+      font-size: var(--step-0);
+      font-weight: 600;
+      box-shadow: 0 10px 24px oklch(24% 0.03 54 / 0.18);
+      transition:
+        background-color var(--dur-state) var(--ease-out-quart),
+        border-color var(--dur-state) var(--ease-out-quart),
+        box-shadow var(--dur-state) var(--ease-out-quart);
+      will-change: transform;
+    }
+
+    .btn-rsvp-yes:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+      box-shadow: 0 14px 30px oklch(45% 0.12 62 / 0.26);
+    }
+
+    .btn-rsvp-no {
+      position: relative;
+      z-index: 4;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      padding: 0 var(--space-5);
+      border: 1px solid var(--line-strong);
+      border-radius: 999px;
+      background: var(--paper-warm);
+      color: var(--ink-secondary);
+      font-size: var(--step--1);
+      font-weight: 600;
+      touch-action: manipulation;
+      user-select: none;
+      -webkit-user-select: none;
+      will-change: transform;
+    }
+
+    .rsvp-taunt {
+      position: absolute;
+      bottom: calc(100% + 8px);
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 6px 12px;
+      border: 1px solid var(--line-strong);
+      border-radius: 999px;
+      background: var(--pine-deep);
+      color: var(--paper-card);
+      font-size: var(--step--2);
+      font-weight: 600;
+      white-space: nowrap;
+      pointer-events: none;
+      box-shadow: 0 6px 16px oklch(24% 0.03 54 / 0.18);
+      animation: rsvpTauntPop 1.55s var(--ease-out-quart) forwards;
+    }
+
+    @keyframes rsvpTauntPop {
+      0% { opacity: 0; transform: translate(-50%, 6px) scale(0.88); }
+      16% { opacity: 1; transform: translate(-50%, 0) scale(1); }
+      82% { opacity: 1; transform: translate(-50%, -2px) scale(1); }
+      100% { opacity: 0; transform: translate(-50%, -10px) scale(0.94); }
+    }
+
+    .rsvp-confirmed {
+      display: grid;
+      justify-items: center;
+      gap: var(--space-2);
+      padding-block: var(--space-3);
+    }
+
+    .rsvp-confirmed-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      padding: 6px 16px;
+      border: 1px solid var(--line-strong);
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: var(--step--2);
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .rsvp-confirmed h3 {
+      font: italic 700 clamp(1.75rem, 4.5vw, 2.4rem) / 1.15 var(--font-display);
+      color: var(--ink);
+    }
+
+    .rsvp-confirmed p {
+      font-size: var(--step--1);
+      color: var(--ink-secondary);
+    }
+
+    .fx-canvas {
+      position: fixed;
+      inset: 0;
+      z-index: 45;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    /* ==========================================================================
        6. VENUE, CAMPUS MAPS & PARKING
        ========================================================================== */
     .details {
@@ -1409,8 +1586,28 @@
       </div>
     </section>
 
-    <!-- 4. VENUE, LOGISTICS & CONTACT -->
-    <section class="details" aria-labelledby="venue-title">
+    <!-- 3B. INTERACTIVE RSVP QUESTION GATE -->
+    <section class="rsvp-gate" id="rsvp-section" aria-labelledby="rsvp-question">
+      <div class="rsvp-card" id="rsvp-card">
+        <span class="rsvp-kicker">✦ Lời hẹn ngày tốt nghiệp ✦</span>
+        <h2 class="rsvp-question" id="rsvp-question">Bạn có đồng ý đến chung vui lễ tốt nghiệp cùng mình không?</h2>
+        <p class="rsvp-sub" id="rsvp-sub">Xác nhận tham dự để mở khóa bản đồ địa điểm, sơ đồ trường và hướng dẫn gửi xe nhé!</p>
+
+        <div class="question-arena" id="question-arena">
+          <button class="btn-rsvp-yes" id="btn-rsvp-yes" type="button">Chắc chắn có mặt! 🎓</button>
+          <button class="btn-rsvp-no" id="btn-rsvp-no" type="button">Hôm đó bận rồi</button>
+        </div>
+
+        <div class="rsvp-confirmed" id="rsvp-confirmed" hidden>
+          <span class="rsvp-confirmed-badge">✓ Đã chốt kèo tham dự</span>
+          <h3 id="rsvp-thanks-title">Cảm ơn vì đã đồng ý đến chung vui!</h3>
+          <p>Thông tin địa điểm, sơ đồ khuôn viên và bãi gửi xe đã được mở khóa ngay bên dưới ↓</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. VENUE, LOGISTICS & CONTACT (HIDDEN UNTIL RSVP "YES") -->
+    <section class="details" id="venue-section" aria-labelledby="venue-title" hidden>
       <div class="venue">
         <div class="venue-header">
           <div class="venue-copy">
@@ -1476,6 +1673,8 @@
     </footer>
   </main>
 
+  <canvas class="fx-canvas" id="fx-canvas" hidden></canvas>
+
   <dialog class="lightbox" id="photos" aria-label="Ảnh phóng to">
     <form method="dialog"><button type="submit" aria-label="Đóng ảnh" autofocus>×</button></form>
     <img alt="">
@@ -1490,6 +1689,10 @@
       const cleanGuest = guestParam.trim();
       document.getElementById("guest-name").textContent = cleanGuest;
       document.getElementById("gate-guest").textContent = cleanGuest;
+      document.getElementById("rsvp-question").textContent =
+        `${cleanGuest} ơi, bạn có đồng ý đến chung vui lễ tốt nghiệp cùng mình không?`;
+      document.getElementById("rsvp-thanks-title").textContent =
+        `Cảm ơn ${cleanGuest} vì đã đồng ý đến chung vui!`;
     }
 
     const invitation = document.getElementById("invitation");
@@ -1612,31 +1815,15 @@
             }
           });
 
-          // Venue & guides reveal
-          gsap.from(".venue-header > *", {
-            y: 18,
+          gsap.from(".rsvp-card", {
+            y: 24,
             autoAlpha: 0,
-            stagger: 0.1,
-            duration: 0.6,
+            duration: 0.7,
             scrollTrigger: {
-              trigger: ".venue",
-              start: "top 82%",
+              trigger: ".rsvp-gate",
+              start: "top 84%",
               toggleActions: "play none none none"
             }
-          });
-
-          ScrollTrigger.batch(".map, .guide-block, .contact li", {
-            start: "top 88%",
-            onEnter: (batch) => {
-              gsap.from(batch, {
-                y: 22,
-                autoAlpha: 0,
-                stagger: 0.08,
-                duration: 0.6,
-                overwrite: "auto"
-              });
-            },
-            once: true
           });
 
           // Epilogue footer reveal
@@ -2005,6 +2192,215 @@
     }
     updateCountdown();
     countdown.hidden = false;
+
+    // Interactive RSVP Question Gate (Dodging "No" + Confetti + Unlock Section 4)
+    const rsvpArena = document.getElementById("question-arena");
+    const btnRsvpYes = document.getElementById("btn-rsvp-yes");
+    const btnRsvpNo = document.getElementById("btn-rsvp-no");
+    const rsvpQuestion = document.getElementById("rsvp-question");
+    const rsvpSub = document.getElementById("rsvp-sub");
+    const rsvpConfirmed = document.getElementById("rsvp-confirmed");
+    const venueSection = document.getElementById("venue-section");
+    const fxCanvas = document.getElementById("fx-canvas");
+    const fxCtx = fxCanvas.getContext("2d");
+
+    const rsvpTaunts = [
+      "Ơ kìa đừng bấm nút này 🥺",
+      "4 năm có 1 lần thôi đó!",
+      "Thiếu bạn mất vui đó!",
+      "Nghĩ lại đi màaa ✨",
+      "Bấm nút bên cạnh kìa 👉",
+      "Không cho từ chối đâu nha!"
+    ];
+    let dodgeCount = 0;
+    let noOffsetX = 0;
+    let noOffsetY = 0;
+
+    function dodgeNoButton() {
+      dodgeCount += 1;
+      const arenaRect = rsvpArena.getBoundingClientRect();
+      const yesRect = btnRsvpYes.getBoundingClientRect();
+      const noRect = btnRsvpNo.getBoundingClientRect();
+
+      // Natural home center of btnRsvpNo before transform
+      const homeCenterX = (noRect.left - noOffsetX) + noRect.width * 0.5;
+      const homeCenterY = (noRect.top - noOffsetY) + noRect.height * 0.5;
+
+      const padX = 12;
+      const padTop = 38; // Leave room above button so .rsvp-taunt bubble never clips
+      const padBottom = 12;
+
+      const minCenterX = arenaRect.left + padX + noRect.width * 0.5;
+      const maxCenterX = Math.max(minCenterX, arenaRect.right - padX - noRect.width * 0.5);
+      const minCenterY = arenaRect.top + padTop + noRect.height * 0.5;
+      const maxCenterY = Math.max(minCenterY, arenaRect.bottom - padBottom - noRect.height * 0.5);
+
+      let targetX = noOffsetX;
+      let targetY = noOffsetY;
+
+      // Pick a random spot inside the arena that doesn't overlap the growing Yes button
+      for (let attempt = 0; attempt < 14; attempt += 1) {
+        const candCenterX = minCenterX + Math.random() * (maxCenterX - minCenterX);
+        const candCenterY = minCenterY + Math.random() * (maxCenterY - minCenterY);
+
+        const overlapsYes =
+          Math.abs(candCenterX - (yesRect.left + yesRect.width * 0.5)) < (yesRect.width * 0.5 + noRect.width * 0.5 + 10) &&
+          Math.abs(candCenterY - (yesRect.top + yesRect.height * 0.5)) < (yesRect.height * 0.5 + noRect.height * 0.5 + 10);
+
+        const movedEnough = Math.hypot(candCenterX - (homeCenterX + noOffsetX), candCenterY - (homeCenterY + noOffsetY)) > 36;
+
+        targetX = candCenterX - homeCenterX;
+        targetY = candCenterY - homeCenterY;
+        if (!overlapsYes && movedEnough) break;
+      }
+
+      noOffsetX = targetX;
+      noOffsetY = targetY;
+      const noScale = Math.max(0.68, 1 - dodgeCount * 0.045);
+      const yesScale = Math.min(1.38, 1 + dodgeCount * 0.055);
+
+      if (hasGSAP && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        gsap.to(btnRsvpNo, {
+          x: noOffsetX,
+          y: noOffsetY,
+          scale: noScale,
+          duration: 0.28,
+          ease: "back.out(1.6)",
+          overwrite: "auto"
+        });
+        gsap.to(btnRsvpYes, {
+          scale: yesScale,
+          duration: 0.32,
+          ease: "back.out(1.5)",
+          overwrite: "auto"
+        });
+      } else {
+        btnRsvpNo.style.transform = `translate(${noOffsetX}px, ${noOffsetY}px) scale(${noScale})`;
+        btnRsvpYes.style.transform = `scale(${yesScale})`;
+      }
+
+      // Show floating playful taunt bubble
+      const oldTaunt = btnRsvpNo.querySelector(".rsvp-taunt");
+      if (oldTaunt) oldTaunt.remove();
+      const tauntEl = document.createElement("span");
+      tauntEl.className = "rsvp-taunt";
+      tauntEl.textContent = rsvpTaunts[(dodgeCount - 1) % rsvpTaunts.length];
+      btnRsvpNo.appendChild(tauntEl);
+      setTimeout(() => tauntEl.remove(), 1550);
+    }
+
+    btnRsvpNo.addEventListener("mouseenter", dodgeNoButton);
+    btnRsvpNo.addEventListener("touchstart", (event) => {
+      event.preventDefault();
+      dodgeNoButton();
+    }, { passive: false });
+    btnRsvpNo.addEventListener("click", (event) => {
+      event.preventDefault();
+      dodgeNoButton();
+    });
+
+    // Editorial Gold & Warm Cream Confetti Celebration (auto-stops when particles finish)
+    let fxParticles = [];
+    let fxLoopActive = false;
+    const confettiPalette = ["#b6762b", "#d9a45b", "#7a5438", "#e8c896", "#c96f4a"];
+
+    function launchEditorialCelebration() {
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+      fxCanvas.width = window.innerWidth;
+      fxCanvas.height = window.innerHeight;
+      fxCanvas.hidden = false;
+
+      const spawnBurst = (cx, cy, count) => {
+        for (let i = 0; i < count; i += 1) {
+          const angle = Math.random() * Math.PI * 2;
+          const speed = 2.5 + Math.random() * 6;
+          fxParticles.push({
+            x: cx,
+            y: cy,
+            vx: Math.cos(angle) * speed,
+            vy: Math.sin(angle) * speed - 2,
+            life: 1,
+            decay: 0.011 + Math.random() * 0.009,
+            color: confettiPalette[Math.floor(Math.random() * confettiPalette.length)],
+            size: 4 + Math.random() * 4.5,
+            gravity: 0.06,
+            rot: Math.random() * Math.PI,
+            vrot: (Math.random() - 0.5) * 0.22
+          });
+        }
+      };
+
+      spawnBurst(fxCanvas.width * 0.5, fxCanvas.height * 0.45, 75);
+      setTimeout(() => spawnBurst(fxCanvas.width * 0.28, fxCanvas.height * 0.38, 45), 260);
+      setTimeout(() => spawnBurst(fxCanvas.width * 0.72, fxCanvas.height * 0.38, 45), 480);
+
+      if (!fxLoopActive) {
+        fxLoopActive = true;
+        const stepFx = () => {
+          fxCtx.clearRect(0, 0, fxCanvas.width, fxCanvas.height);
+          fxParticles.forEach((p) => {
+            p.vy += p.gravity;
+            p.x += p.vx;
+            p.y += p.vy;
+            p.rot += p.vrot;
+            p.life -= p.decay;
+            fxCtx.save();
+            fxCtx.globalAlpha = Math.max(0, p.life);
+            fxCtx.translate(p.x, p.y);
+            fxCtx.rotate(p.rot);
+            fxCtx.fillStyle = p.color;
+            fxCtx.fillRect(-p.size * 0.5, -p.size * 0.5, p.size, p.size * 1.65);
+            fxCtx.restore();
+          });
+          fxParticles = fxParticles.filter((p) => p.life > 0 && p.y < fxCanvas.height + 32);
+          if (fxParticles.length > 0) {
+            requestAnimationFrame(stepFx);
+          } else {
+            fxLoopActive = false;
+            fxCtx.clearRect(0, 0, fxCanvas.width, fxCanvas.height);
+            fxCanvas.hidden = true;
+          }
+        };
+        requestAnimationFrame(stepFx);
+      }
+    }
+
+    btnRsvpYes.addEventListener("click", () => {
+      if (!venueSection.hidden) return;
+
+      // 1. Update RSVP card into confirmed state
+      rsvpQuestion.hidden = true;
+      rsvpSub.hidden = true;
+      rsvpArena.hidden = true;
+      rsvpConfirmed.hidden = false;
+
+      // 2. Reveal Section 4 (Venue, Campus Maps, Parking & Contact)
+      venueSection.hidden = false;
+
+      // 3. Celebrate & animate newly unlocked Section 4
+      launchEditorialCelebration();
+
+      const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (hasGSAP && !prefersReduced) {
+        gsap.from(rsvpConfirmed, { y: 14, autoAlpha: 0, duration: 0.45, ease: "power2.out" });
+        gsap.from("#venue-section .venue-header > *, #venue-section .map, #venue-section .guide-block, #venue-section .contact", {
+          y: 24,
+          autoAlpha: 0,
+          stagger: 0.08,
+          duration: 0.65,
+          ease: "power2.out",
+          clearProps: "transform,opacity,visibility"
+        });
+      }
+
+      if (typeof window.ScrollTrigger !== "undefined") {
+        ScrollTrigger.refresh();
+      }
+
+      setTimeout(() => {
+        venueSection.scrollIntoView({ behavior: prefersReduced ? "auto" : "smooth", block: "start" });
+      }, 320);
+    });
 
     // Photo Lightbox
     const photos = document.getElementById("photos");
