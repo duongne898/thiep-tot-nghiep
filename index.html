@@ -1711,8 +1711,8 @@
       </div>
     </section>
 
-    <!-- 5. FOOTER EPILOGUE -->
-    <footer>
+    <!-- 5. FOOTER EPILOGUE (HIDDEN UNTIL RSVP "YES") -->
+    <footer id="epilogue-footer" hidden>
       <div class="thanks">
           <h2><span class="reveal-mask"><span class="reveal-line">Thank You!</span></span></h2>
           <p>Nếu một ngày bạn cảm thấy mệt và xui vcl.</p>
@@ -1932,42 +1932,7 @@
             }
           });
 
-          // 5. Epilogue Footer — Scrubbed Card Settling + Swash-Safe Masked Title
-          gsap.from(".thanks", {
-            scale: 0.96,
-            y: 18,
-            ease: "none",
-            scrollTrigger: {
-              trigger: "footer",
-              start: "top 95%",
-              end: "top 70%",
-              scrub: 0.4
-            }
-          });
-
-          const thanksTl = gsap.timeline({
-            scrollTrigger: {
-              trigger: ".thanks",
-              start: "top 82%",
-              toggleActions: "play none none none"
-            }
-          });
-          thanksTl
-            .from(".thanks h2 .reveal-line", {
-              yPercent: 108,
-              autoAlpha: 0,
-              duration: 0.8,
-              ease: "expo.out"
-            })
-            .from(".thanks p", {
-              y: 16,
-              autoAlpha: 0,
-              stagger: 0.1,
-              duration: 0.6,
-              ease: "power2.out"
-            }, "-=0.45");
-
-          // 6. Desktop-Only Subtle Magnetic Pull on Primary CTAs (gsap.quickTo)
+          // 5. Desktop-Only Subtle Magnetic Pull on Primary CTAs (gsap.quickTo)
           if (canHover) {
             const magnetCleanups = [];
             document.querySelectorAll("#btn-rsvp-yes, .btn-editorial").forEach((btn) => {
@@ -2418,6 +2383,7 @@
     const rsvpSub = document.getElementById("rsvp-sub");
     const rsvpConfirmed = document.getElementById("rsvp-confirmed");
     const venueSection = document.getElementById("venue-section");
+    const epilogueFooter = document.getElementById("epilogue-footer");
     const fxCanvas = document.getElementById("fx-canvas");
     const fxCtx = fxCanvas.getContext("2d");
 
@@ -2591,10 +2557,11 @@
       rsvpArena.hidden = true;
       rsvpConfirmed.hidden = false;
 
-      // 2. Reveal Section 4 (Venue, Campus Maps, Parking & Contact)
+      // 2. Reveal Section 4 (Venue, Campus Maps, Parking & Contact) & Section 5 (Epilogue Footer)
       venueSection.hidden = false;
+      epilogueFooter.hidden = false;
 
-      // 3. Celebrate & animate newly unlocked Section 4
+      // 3. Celebrate & animate newly unlocked Section 4 + register Section 5 ScrollTriggers
       launchEditorialCelebration();
 
       const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -2608,6 +2575,42 @@
           ease: "power2.out",
           clearProps: "transform,opacity,visibility"
         });
+
+        if (typeof window.ScrollTrigger !== "undefined") {
+          gsap.from(".thanks", {
+            scale: 0.96,
+            y: 18,
+            ease: "none",
+            scrollTrigger: {
+              trigger: epilogueFooter,
+              start: "top 95%",
+              end: "top 70%",
+              scrub: 0.4
+            }
+          });
+
+          const thanksTl = gsap.timeline({
+            scrollTrigger: {
+              trigger: ".thanks",
+              start: "top 82%",
+              toggleActions: "play none none none"
+            }
+          });
+          thanksTl
+            .from(".thanks h2 .reveal-line", {
+              yPercent: 108,
+              autoAlpha: 0,
+              duration: 0.8,
+              ease: "expo.out"
+            })
+            .from(".thanks p", {
+              y: 16,
+              autoAlpha: 0,
+              stagger: 0.1,
+              duration: 0.6,
+              ease: "power2.out"
+            }, "-=0.45");
+        }
       }
 
       if (typeof window.ScrollTrigger !== "undefined") {
