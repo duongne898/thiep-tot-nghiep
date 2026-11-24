@@ -195,7 +195,7 @@
        ========================================================================== */
     .opening {
       --tear-progress: 0;
-      --seam-clip-right: 100%;
+      --seam-clip-left: 100%;
       position: fixed;
       z-index: 50;
       inset: 0;
@@ -265,7 +265,7 @@
       border-top: 0;
     }
 
-    /* Torn paper seam edge revealed progressively as the handle tears across */
+    /* Torn paper seam edge revealed progressively from right to left as the handle tears across */
     .gate-panel--top::after,
     .gate-panel--bottom::after {
       position: absolute;
@@ -274,7 +274,7 @@
       height: 8px;
       content: "";
       pointer-events: none;
-      clip-path: inset(0 var(--seam-clip-right) 0 0);
+      clip-path: inset(0 0 0 var(--seam-clip-left));
     }
 
     .gate-panel--top::after {
@@ -376,6 +376,7 @@
       position: relative;
       display: flex;
       align-items: center;
+      justify-content: flex-end;
       width: min(400px, calc(100vw - 64px));
       height: 68px;
       padding: 6px;
@@ -390,25 +391,25 @@
       overflow: hidden;
     }
 
-    /* Perforation dashed line ahead of the tear handle */
+    /* Perforation dashed line ahead of the tear handle (to the left) */
     .tear-perforation {
       position: absolute;
-      inset: 50% 22px auto 72px;
+      inset: 50% 72px auto 22px;
       height: 0;
       border-top: 1.5px dashed var(--line-strong);
       opacity: 0.55;
       pointer-events: none;
     }
 
-    /* Torn recessed slot revealed behind the rolling button */
+    /* Torn recessed slot revealed behind the rolling button (from right to left) */
     .tear-cut {
       position: absolute;
       top: 50%;
-      left: 10px;
-      right: 16px;
+      left: 16px;
+      right: 10px;
       height: 8px;
       transform: translateY(-50%) scaleX(var(--tear-progress));
-      transform-origin: left center;
+      transform-origin: right center;
       border-radius: 999px;
       background: oklch(26% 0.03 54 / 0.18);
       box-shadow: inset 0 2px 4px oklch(20% 0.03 54 / 0.28);
@@ -423,7 +424,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 0 16px 0 66px;
+      padding: 0 66px 0 16px;
       white-space: nowrap;
       font-size: var(--step--2);
       font-weight: 600;
@@ -514,7 +515,7 @@
         height: 44px;
       }
       .tear-hint {
-        padding-left: 54px;
+        padding-right: 54px;
       }
     }
 
@@ -876,7 +877,8 @@
       color: var(--ink);
       font-size: var(--step-0);
       line-height: 1.8;
-      text-wrap: pretty;
+      text-align: justify;
+      text-justify: inter-word;
     }
 
     .story-body .signature {
@@ -1318,10 +1320,10 @@
       <div class="tear-track" id="tear-track">
         <span class="tear-perforation" aria-hidden="true"></span>
         <span class="tear-cut" aria-hidden="true"></span>
-        <button class="tear-handle" id="open-button" type="button" aria-label="Kéo sang phải hoặc chạm hai lần để mở thiệp tốt nghiệp của Nguyễn Thái Dương">
+        <button class="tear-handle" id="open-button" type="button" aria-label="Vuốt sang trái hoặc chạm hai lần để mở thiệp tốt nghiệp của Nguyễn Thái Dương">
           <img id="tear-button-img" src="image/LHMO9061.PNG" alt="">
         </button>
-        <span class="tear-hint" id="tear-hint" aria-hidden="true">Vuốt sang phải để mở →</span>
+        <span class="tear-hint" id="tear-hint" aria-hidden="true">← Vuốt sang trái để mở</span>
       </div>
     </div>
   </div>
@@ -1655,22 +1657,22 @@
       );
     }
 
-    // Full-Screen Envelope Tear Swipe + Rolling Button + Pointer-Aware Auto-Burst Reveal
+    // Full-Screen Envelope Tear Swipe (Right -> Left) + Rolling Button + Pointer-Aware Auto-Burst Reveal
     const TOUCH_COMMIT_THRESHOLD = 0.75;
     const TOUCH_MAGNET_SNAP = 0.92;
     const MOUSE_AUTO_BURST = 0.95;
-    const FULL_TURNS_DEG = 720; // Two smooth clockwise turns across full track
+    const FULL_TURNS_DEG = -720; // Two smooth counter-clockwise turns when rolling right-to-left
     let isOpened = false;
     let isDragging = false;
     let activePointerId = null;
     let startClientX = 0;
     let startClientY = 0;
     let startProgress = 0;
-    let currentX = 0;
+    let currentTravel = 0; // Positive distance traveled from right to left (0 .. visualMaxX)
     let visualMaxX = 1;
     let dragSpanPx = 1;
-    let trackLeftPx = 0;
-    let trackPadLeftPx = 6;
+    let trackRightPx = 0;
+    let trackPadRightPx = 6;
     let tapCount = 0;
     let lastTapAt = 0;
 
@@ -1688,28 +1690,28 @@
 
     function measureMaxDrag() {
       const style = window.getComputedStyle(tearTrack);
-      trackPadLeftPx = parseFloat(style.paddingLeft) || 6;
-      const padX = trackPadLeftPx + (parseFloat(style.paddingRight) || 6);
-      trackLeftPx = tearTrack.getBoundingClientRect().left;
+      trackPadRightPx = parseFloat(style.paddingRight) || 6;
+      const padX = (parseFloat(style.paddingLeft) || 6) + trackPadRightPx;
+      trackRightPx = tearTrack.getBoundingClientRect().right;
       return Math.max(1, tearTrack.clientWidth - openButton.offsetWidth - padX);
     }
 
-    function applyTearVisual(xPx, fullViewportSeam = false) {
-      currentX = xPx;
-      const progress = Math.min(1, Math.max(0, xPx / visualMaxX));
-      setHandleX(xPx);
+    function applyTearVisual(travelPx, fullViewportSeam = false) {
+      currentTravel = travelPx;
+      const progress = Math.min(1, Math.max(0, travelPx / visualMaxX));
+      setHandleX(-travelPx);
       setImgRotation(progress * FULL_TURNS_DEG);
       opening.style.setProperty("--tear-progress", progress.toFixed(4));
 
       if (fullViewportSeam) {
-        opening.style.setProperty("--seam-clip-right", "0%");
+        opening.style.setProperty("--seam-clip-left", "0%");
       } else if (progress <= 0.001) {
-        opening.style.setProperty("--seam-clip-right", "100%");
+        opening.style.setProperty("--seam-clip-left", "100%");
       } else {
         const vw = Math.max(1, window.innerWidth);
-        const handleCenterX = trackLeftPx + trackPadLeftPx + openButton.offsetWidth * 0.5 + xPx;
-        const clipRight = Math.max(0, Math.min(100, 100 - (handleCenterX / vw) * 100));
-        opening.style.setProperty("--seam-clip-right", `${clipRight.toFixed(2)}%`);
+        const handleCenterX = trackRightPx - trackPadRightPx - openButton.offsetWidth * 0.5 - travelPx;
+        const clipLeft = Math.max(0, Math.min(100, (handleCenterX / vw) * 100));
+        opening.style.setProperty("--seam-clip-left", `${clipLeft.toFixed(2)}%`);
       }
 
       tearHint.style.opacity = String(Math.max(0, 1 - progress * 2.1));
@@ -1756,7 +1758,7 @@
       const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       if (hasGSAP && !prefersReduced) {
         visualMaxX = measureMaxDrag();
-        const proxy = { x: currentX };
+        const proxy = { travel: currentTravel };
 
         // Prepare hero elements behind the top/bottom envelope doors
         gsap.set(".hero-photo img", { scale: 1.09 });
@@ -1765,10 +1767,10 @@
         const revealTl = gsap.timeline({ onComplete: finishReveal });
         revealTl
           .to(proxy, {
-            x: visualMaxX,
-            duration: currentX >= visualMaxX * 0.96 ? 0.06 : 0.18,
+            travel: visualMaxX,
+            duration: currentTravel >= visualMaxX * 0.96 ? 0.06 : 0.18,
             ease: "power2.out",
-            onUpdate: () => applyTearVisual(proxy.x),
+            onUpdate: () => applyTearVisual(proxy.travel),
             onComplete: () => applyTearVisual(visualMaxX, true)
           })
           .to(gateSeam, {
@@ -1822,29 +1824,29 @@
         applyTearVisual(0);
         return;
       }
-      const proxy = { x: currentX };
+      const proxy = { travel: currentTravel };
       if (nudgeFirstTap) {
-        tearHint.textContent = "Vuốt sang phải để mở →";
+        tearHint.textContent = "← Vuốt sang trái để mở";
         activeSpringTween = gsap.timeline({ onComplete: () => { activeSpringTween = null; } });
         activeSpringTween
           .to(proxy, {
-            x: Math.min(36, visualMaxX * 0.18),
+            travel: Math.min(36, visualMaxX * 0.18),
             duration: 0.2,
             ease: "power2.out",
-            onUpdate: () => applyTearVisual(proxy.x)
+            onUpdate: () => applyTearVisual(proxy.travel)
           })
           .to(proxy, {
-            x: 0,
+            travel: 0,
             duration: 0.36,
             ease: "power3.out",
-            onUpdate: () => applyTearVisual(proxy.x)
+            onUpdate: () => applyTearVisual(proxy.travel)
           });
       } else {
         activeSpringTween = gsap.to(proxy, {
-          x: 0,
+          travel: 0,
           duration: 0.38,
           ease: "power3.out",
-          onUpdate: () => applyTearVisual(proxy.x),
+          onUpdate: () => applyTearVisual(proxy.travel),
           onComplete: () => { activeSpringTween = null; }
         });
       }
@@ -1868,15 +1870,15 @@
 
       killSpringTween();
       visualMaxX = measureMaxDrag();
-      startProgress = Math.min(1, Math.max(0, currentX / visualMaxX));
+      startProgress = Math.min(1, Math.max(0, currentTravel / visualMaxX));
 
       if (startedOnHandle) {
         dragSpanPx = visualMaxX;
       } else if (event.pointerType === "mouse") {
-        dragSpanPx = Math.min(visualMaxX, Math.max(160, window.innerWidth - event.clientX - 32));
+        dragSpanPx = Math.min(visualMaxX, Math.max(160, event.clientX - 32));
       } else {
-        const availableRightPx = Math.max(110, window.innerWidth - event.clientX - 24);
-        dragSpanPx = Math.min(visualMaxX, availableRightPx, Math.max(150, window.innerWidth * 0.46));
+        const availableLeftPx = Math.max(110, event.clientX - 24);
+        dragSpanPx = Math.min(visualMaxX, availableLeftPx, Math.max(150, window.innerWidth * 0.46));
       }
 
       isDragging = true;
@@ -1892,8 +1894,9 @@
 
     opening.addEventListener("pointermove", (event) => {
       if (!isDragging || event.pointerId !== activePointerId || isOpened) return;
-      const deltaX = event.clientX - startClientX;
-      const rawProgress = Math.min(1, Math.max(0, startProgress + deltaX / dragSpanPx));
+      // Right-to-left movement yields positive travelDelta
+      const travelDelta = startClientX - event.clientX;
+      const rawProgress = Math.min(1, Math.max(0, startProgress + travelDelta / dragSpanPx));
 
       // On mouse, pointerdown already granted transient user activation — burst immediately at destination!
       if (event.pointerType === "mouse" && rawProgress >= MOUSE_AUTO_BURST) {
@@ -1926,7 +1929,7 @@
       const deltaX = event.clientX - startClientX;
       const deltaY = event.clientY - startClientY;
       const movedHypot = Math.hypot(deltaX, deltaY);
-      const progress = currentX / visualMaxX;
+      const progress = currentTravel / visualMaxX;
 
       if (progress >= TOUCH_COMMIT_THRESHOLD) {
         commitOpenReveal();
@@ -1946,9 +1949,12 @@
       }
 
       tapCount = 0;
-      // If user swiped upward out of habit, nudge the tear handle rightward to teach horizontal tear
-      const isVerticalSwipeAttempt = Math.abs(deltaY) > 36 && Math.abs(deltaY) > Math.abs(deltaX) * 1.5 && progress < 0.12;
-      springBackToStart(isVerticalSwipeAttempt);
+      // If user swiped upward or rightward by mistake, nudge the tear handle leftward to teach right-to-left tear
+      const isWrongDirectionAttempt = (
+        (Math.abs(deltaY) > 36 && Math.abs(deltaY) > Math.abs(deltaX) * 1.5 && progress < 0.12) ||
+        (deltaX > 28 && progress < 0.05)
+      );
+      springBackToStart(isWrongDirectionAttempt);
     }
 
     opening.addEventListener("pointerup", (e) => finishPointerGesture(e, false));
@@ -1965,7 +1971,7 @@
     // Keyboard & Assistive Technology (VoiceOver / TalkBack synthesized click) support
     openButton.addEventListener("keydown", (event) => {
       if (isOpened) return;
-      if (event.key === "Enter" || event.key === " " || event.key === "ArrowRight") {
+      if (event.key === "Enter" || event.key === " " || event.key === "ArrowLeft") {
         event.preventDefault();
         visualMaxX = measureMaxDrag();
         commitOpenReveal();
