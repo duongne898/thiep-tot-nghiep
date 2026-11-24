@@ -204,6 +204,15 @@
       grid-template-rows: 1fr 1fr;
       overflow: hidden;
       pointer-events: auto;
+      cursor: grab;
+      touch-action: none;
+      user-select: none;
+      -webkit-user-select: none;
+      -webkit-touch-callout: none;
+    }
+
+    .opening.is-dragging {
+      cursor: grabbing;
     }
 
     .opening.is-opening {
@@ -425,6 +434,11 @@
       transition: opacity 180ms var(--ease-out-quart), color 180ms var(--ease-out-quart);
     }
 
+    .tear-track.is-ready {
+      border-color: var(--accent);
+      box-shadow: 0 14px 36px oklch(24% 0.03 54 / 0.16), 0 0 0 3px var(--accent-soft);
+    }
+
     .tear-track.is-ready .tear-hint {
       color: var(--accent);
     }
@@ -479,6 +493,28 @@
       }
       .seal-emblem {
         display: none;
+      }
+    }
+
+    @media (max-height: 460px) {
+      .gate-panel {
+        padding: 12px var(--space-4);
+      }
+      .gate-panel--top {
+        padding-bottom: 36px;
+      }
+      .gate-panel--bottom {
+        padding-top: 36px;
+      }
+      .tear-track {
+        height: 56px;
+      }
+      .tear-handle {
+        width: 44px;
+        height: 44px;
+      }
+      .tear-hint {
+        padding-left: 54px;
       }
     }
 
@@ -782,16 +818,15 @@
        5. PERSONAL LETTER ("GỬI BẠN")
        ========================================================================== */
     .story {
-      padding: var(--space-8) var(--gutter);
+      padding: var(--space-7) var(--gutter);
       background: var(--paper-warm);
       border-bottom: 1px solid var(--line);
     }
 
     .story-layout {
       display: grid;
-      grid-template-columns: auto minmax(0, 1fr);
-      align-items: center;
-      gap: clamp(16px, 3.5vw, 48px);
+      grid-template-columns: 1fr;
+      gap: var(--space-5);
       max-width: 960px;
       margin-inline: auto;
     }
@@ -800,27 +835,37 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      align-self: stretch;
-      padding-inline: var(--space-2);
+      gap: var(--space-4);
+      width: 100%;
+    }
+
+    .story-aside::before,
+    .story-aside::after {
+      content: "";
+      flex: 1;
+      max-width: 72px;
+      height: 1px;
+      background: var(--line-strong);
     }
 
     .story-aside h2 {
-      display: grid;
-      gap: 2px;
+      display: inline-flex;
+      align-items: baseline;
+      gap: 0.26em;
       text-align: center;
-      font: italic 700 clamp(2.5rem, 5.5vw, 4.25rem) / 0.95 var(--font-display);
+      font: italic 700 clamp(2.15rem, 7vw, 2.75rem) / 1.05 var(--font-display);
       letter-spacing: -0.01em;
       color: var(--accent);
     }
 
     .story-aside h2 span {
-      display: block;
+      display: inline;
     }
 
     .story-body {
       display: grid;
       gap: var(--space-4);
-      padding: var(--space-6);
+      padding: var(--space-5) clamp(20px, 5.5vw, 28px);
       border: 1px solid var(--line);
       border-radius: var(--radius-md);
       background: var(--paper-card);
@@ -1191,9 +1236,36 @@
         padding-block: var(--space-2);
       }
 
+      .story {
+        padding-block: var(--space-8);
+      }
+
       .story-layout {
         grid-template-columns: minmax(110px, 0.22fr) minmax(0, 0.78fr);
+        gap: clamp(24px, 3.5vw, 48px);
         align-items: center;
+      }
+
+      .story-aside {
+        align-self: stretch;
+        width: auto;
+        padding-inline: var(--space-2);
+      }
+
+      .story-aside::before,
+      .story-aside::after {
+        display: none;
+      }
+
+      .story-aside h2 {
+        display: grid;
+        gap: 2px;
+        font-size: clamp(2.85rem, 5.5vw, 4.25rem);
+        line-height: 0.95;
+      }
+
+      .story-aside h2 span {
+        display: block;
       }
 
       .story-body {
@@ -1249,7 +1321,7 @@
         <button class="tear-handle" id="open-button" type="button" aria-label="Kéo sang phải hoặc chạm hai lần để mở thiệp tốt nghiệp của Nguyễn Thái Dương">
           <img id="tear-button-img" src="image/LHMO9061.PNG" alt="">
         </button>
-        <span class="tear-hint" id="tear-hint" aria-hidden="true">Kéo sang phải để mở →</span>
+        <span class="tear-hint" id="tear-hint" aria-hidden="true">Vuốt sang phải để mở →</span>
       </div>
     </div>
   </div>
@@ -1325,7 +1397,7 @@
     <section class="story" aria-labelledby="story-title">
       <div class="story-layout">
         <div class="story-aside">
-          <h2 id="story-title"><span>Gửi</span><span>Bạn</span></h2>
+          <h2 id="story-title"><span>Gửi</span> <span>Bạn</span></h2>
         </div>
         <div class="story-body">
           <p>Người ta thường nhìn trăng khuyết như một sự thiếu hụt, nhưng thực chất, đó vẫn là một vầng trăng nguyên vẹn đang chờ ánh sáng ghé qua. Hình ảnh ấy khiến em nghĩ nhiều hơn về hành trình trưởng thành của chính mình. Giữa những áp lực vô hình của tuổi trẻ, đã có lúc tôi vội vã muốn bản thân phải thật xuất sắc, phải sớm tìm ra câu trả lời cho mọi ngã rẽ để chứng minh giá trị với thế giới xung quanh. Nhưng rồi tôi hiểu ra, sự hoàn thiện không thể được ép chín trong ngày một ngày hai. Ai cũng có những vùng tối của sự non nớt, những năng lực còn ngủ yên và những hoài bão chưa kịp gọi tên.</p>
@@ -1430,9 +1502,32 @@
     const musicLabel = document.getElementById("music-label");
     const musicStatus = document.getElementById("music-status");
 
-    function playMusic() {
+    // Probe if HTMLMediaElement.volume is writable (true on Desktop/Android, false on iOS)
+    const canControlMediaVolume = (() => {
+      try {
+        const probe = new Audio();
+        probe.volume = 0.5;
+        return Math.abs(probe.volume - 0.5) < 0.01;
+      } catch (_) {
+        return false;
+      }
+    })();
+
+    function playMusic(isResume = false) {
+      // Note: The MP3 file itself is losslessly mastered to -10.5 dB (~30% speaker feel)
+      // with a baked 1.6s intro fade-in, so target volume in JS stays 1.0 across all OSes.
+      if (isResume && canControlMediaVolume && music.currentTime > 0.5) {
+        try {
+          music.volume = 0.08;
+        } catch (_) {}
+      }
       music.play().then(() => {
         musicStatus.textContent = "";
+        if (isResume && canControlMediaVolume && music.currentTime > 0.5 && typeof window.gsap !== "undefined") {
+          gsap.to(music, { volume: 1, duration: 0.6, ease: "power2.out", overwrite: true });
+        } else if (canControlMediaVolume) {
+          try { music.volume = 1; } catch (_) {}
+        }
       }).catch(() => {
         musicLabel.textContent = "Bật nhạc";
         musicStatus.textContent = "Không phát được nhạc nền tự động. Bạn có thể chạm nút Bật nhạc.";
@@ -1451,7 +1546,7 @@
       });
     }
 
-    musicButton.addEventListener("click", () => music.paused ? playMusic() : music.pause());
+    musicButton.addEventListener("click", () => music.paused ? playMusic(true) : music.pause());
     invitation.inert = true;
     opening.hidden = false;
 
@@ -1485,16 +1580,16 @@
       mm.add(
         {
           isDesktop: "(min-width: 880px)",
-          isMobile: "(max-width: 879px)",
+          isMobile: "(max-width: 879.98px)",
           reduceMotion: "(prefers-reduced-motion: reduce)"
         },
         (context) => {
-          const { reduceMotion } = context.conditions;
+          const { isDesktop, reduceMotion } = context.conditions;
           if (reduceMotion) return;
 
-          // Story letter reveal
+          // Story letter reveal (slides horizontally on desktop 2-col, rises vertically on mobile 1-col)
           gsap.from(".story-aside", {
-            x: -18,
+            ...(isDesktop ? { x: -18 } : { y: 16 }),
             autoAlpha: 0,
             duration: 0.65,
             scrollTrigger: {
@@ -1560,18 +1655,24 @@
       );
     }
 
-    // Envelope Tear Drag + Rolling Button + Vertical Gate Reveal
-    const TEAR_THRESHOLD = 0.78;
+    // Full-Screen Envelope Tear Swipe + Rolling Button + Pointer-Aware Auto-Burst Reveal
+    const TOUCH_COMMIT_THRESHOLD = 0.75;
+    const TOUCH_MAGNET_SNAP = 0.92;
+    const MOUSE_AUTO_BURST = 0.95;
     const FULL_TURNS_DEG = 720; // Two smooth clockwise turns across full track
     let isOpened = false;
     let isDragging = false;
     let activePointerId = null;
     let startClientX = 0;
-    let startOffsetX = 0;
+    let startClientY = 0;
+    let startProgress = 0;
     let currentX = 0;
-    let maxDragX = 1;
+    let visualMaxX = 1;
+    let dragSpanPx = 1;
     let trackLeftPx = 0;
+    let trackPadLeftPx = 6;
     let tapCount = 0;
+    let lastTapAt = 0;
 
     if (hasGSAP) {
       gsap.set(tearButtonImg, { scale: 1.06 });
@@ -1587,14 +1688,15 @@
 
     function measureMaxDrag() {
       const style = window.getComputedStyle(tearTrack);
-      const padX = parseFloat(style.paddingLeft) + parseFloat(style.paddingRight);
+      trackPadLeftPx = parseFloat(style.paddingLeft) || 6;
+      const padX = trackPadLeftPx + (parseFloat(style.paddingRight) || 6);
       trackLeftPx = tearTrack.getBoundingClientRect().left;
       return Math.max(1, tearTrack.clientWidth - openButton.offsetWidth - padX);
     }
 
     function applyTearVisual(xPx, fullViewportSeam = false) {
       currentX = xPx;
-      const progress = Math.min(1, Math.max(0, xPx / maxDragX));
+      const progress = Math.min(1, Math.max(0, xPx / visualMaxX));
       setHandleX(xPx);
       setImgRotation(progress * FULL_TURNS_DEG);
       opening.style.setProperty("--tear-progress", progress.toFixed(4));
@@ -1605,14 +1707,14 @@
         opening.style.setProperty("--seam-clip-right", "100%");
       } else {
         const vw = Math.max(1, window.innerWidth);
-        const handleCenterX = trackLeftPx + 34 + xPx;
+        const handleCenterX = trackLeftPx + trackPadLeftPx + openButton.offsetWidth * 0.5 + xPx;
         const clipRight = Math.max(0, Math.min(100, 100 - (handleCenterX / vw) * 100));
         opening.style.setProperty("--seam-clip-right", `${clipRight.toFixed(2)}%`);
       }
 
       tearHint.style.opacity = String(Math.max(0, 1 - progress * 2.1));
 
-      if (progress >= TEAR_THRESHOLD) {
+      if (progress >= TOUCH_COMMIT_THRESHOLD) {
         tearTrack.classList.add("is-ready");
       } else {
         tearTrack.classList.remove("is-ready");
@@ -1620,12 +1722,27 @@
       return progress;
     }
 
+    function releaseOpeningCapture(pointerId) {
+      isDragging = false;
+      activePointerId = null;
+      opening.classList.remove("is-dragging");
+      openButton.classList.remove("is-dragging");
+      if (pointerId !== null && pointerId !== undefined) {
+        try {
+          if (opening.hasPointerCapture(pointerId)) {
+            opening.releasePointerCapture(pointerId);
+          }
+        } catch (_) {}
+      }
+    }
+
     function commitOpenReveal() {
       if (isOpened) return;
       isOpened = true;
+      killSpringTween();
 
-      // Synchronous audio activation inside trusted pointerup / keydown / click handler
-      playMusic();
+      // Synchronous audio activation inside trusted user-activation event
+      playMusic(false);
       musicButton.hidden = false;
 
       const finishReveal = () => {
@@ -1638,7 +1755,7 @@
 
       const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       if (hasGSAP && !prefersReduced) {
-        maxDragX = measureMaxDrag();
+        visualMaxX = measureMaxDrag();
         const proxy = { x: currentX };
 
         // Prepare hero elements behind the top/bottom envelope doors
@@ -1648,11 +1765,11 @@
         const revealTl = gsap.timeline({ onComplete: finishReveal });
         revealTl
           .to(proxy, {
-            x: maxDragX,
-            duration: 0.18,
+            x: visualMaxX,
+            duration: currentX >= visualMaxX * 0.96 ? 0.06 : 0.18,
             ease: "power2.out",
             onUpdate: () => applyTearVisual(proxy.x),
-            onComplete: () => applyTearVisual(maxDragX, true)
+            onComplete: () => applyTearVisual(visualMaxX, true)
           })
           .to(gateSeam, {
             scale: 0.96,
@@ -1707,11 +1824,11 @@
       }
       const proxy = { x: currentX };
       if (nudgeFirstTap) {
-        tearHint.textContent = "Kéo sang phải để mở →";
+        tearHint.textContent = "Vuốt sang phải để mở →";
         activeSpringTween = gsap.timeline({ onComplete: () => { activeSpringTween = null; } });
         activeSpringTween
           .to(proxy, {
-            x: Math.min(34, maxDragX * 0.16),
+            x: Math.min(36, visualMaxX * 0.18),
             duration: 0.2,
             ease: "power2.out",
             onUpdate: () => applyTearVisual(proxy.x)
@@ -1733,79 +1850,124 @@
       }
     }
 
-    openButton.addEventListener("pointerdown", (event) => {
-      if (isOpened) return;
+    opening.addEventListener("pointerdown", (event) => {
+      if (isOpened || isDragging) return;
       if (event.pointerType === "mouse" && event.button !== 0) return;
 
-      // Start buffering audio during drag so playback is instant on release
+      const startedOnHandle = Boolean(event.target.closest("#open-button"));
+      // Ignore accidental palm/thumb grips resting on extreme screen bezels
+      if (!startedOnHandle && event.pointerType !== "mouse") {
+        if (event.clientX < 18 || event.clientX > window.innerWidth - 18) return;
+      }
+
+      // Start buffering audio during swipe so playback is instant on commit
       if (music.preload === "none") {
         music.preload = "auto";
         music.load();
       }
 
       killSpringTween();
-      maxDragX = measureMaxDrag();
+      visualMaxX = measureMaxDrag();
+      startProgress = Math.min(1, Math.max(0, currentX / visualMaxX));
+
+      if (startedOnHandle) {
+        dragSpanPx = visualMaxX;
+      } else if (event.pointerType === "mouse") {
+        dragSpanPx = Math.min(visualMaxX, Math.max(160, window.innerWidth - event.clientX - 32));
+      } else {
+        const availableRightPx = Math.max(110, window.innerWidth - event.clientX - 24);
+        dragSpanPx = Math.min(visualMaxX, availableRightPx, Math.max(150, window.innerWidth * 0.46));
+      }
+
       isDragging = true;
       activePointerId = event.pointerId;
       startClientX = event.clientX;
-      startOffsetX = currentX;
+      startClientY = event.clientY;
+      opening.classList.add("is-dragging");
       openButton.classList.add("is-dragging");
       try {
-        openButton.setPointerCapture(event.pointerId);
+        opening.setPointerCapture(event.pointerId);
       } catch (_) {}
     });
 
-    openButton.addEventListener("pointermove", (event) => {
+    opening.addEventListener("pointermove", (event) => {
       if (!isDragging || event.pointerId !== activePointerId || isOpened) return;
       const deltaX = event.clientX - startClientX;
-      const clampedX = Math.min(maxDragX, Math.max(0, startOffsetX + deltaX));
-      applyTearVisual(clampedX);
+      const rawProgress = Math.min(1, Math.max(0, startProgress + deltaX / dragSpanPx));
+
+      // On mouse, pointerdown already granted transient user activation — burst immediately at destination!
+      if (event.pointerType === "mouse" && rawProgress >= MOUSE_AUTO_BURST) {
+        const hasActivation = navigator.userActivation ? navigator.userActivation.isActive : true;
+        if (hasActivation) {
+          applyTearVisual(visualMaxX, true);
+          releaseOpeningCapture(event.pointerId);
+          commitOpenReveal();
+          return;
+        }
+      }
+
+      // On touch/pen, magnetically snap visual handle to 100% near the end so lifting thumb commits seamlessly
+      if (event.pointerType !== "mouse" && rawProgress >= TOUCH_MAGNET_SNAP) {
+        applyTearVisual(visualMaxX, true);
+      } else {
+        applyTearVisual(rawProgress * visualMaxX, false);
+      }
     });
 
     function finishPointerGesture(event, cancelled = false) {
       if (!isDragging || event.pointerId !== activePointerId || isOpened) return;
-      isDragging = false;
-      activePointerId = null;
-      openButton.classList.remove("is-dragging");
-      try {
-        if (openButton.hasPointerCapture(event.pointerId)) {
-          openButton.releasePointerCapture(event.pointerId);
-        }
-      } catch (_) {}
+      releaseOpeningCapture(event.pointerId);
 
       if (cancelled) {
         springBackToStart(false);
         return;
       }
 
-      const movedDistance = Math.abs(event.clientX - startClientX);
-      const progress = currentX / maxDragX;
+      const deltaX = event.clientX - startClientX;
+      const deltaY = event.clientY - startClientY;
+      const movedHypot = Math.hypot(deltaX, deltaY);
+      const progress = currentX / visualMaxX;
 
-      if (progress >= TEAR_THRESHOLD) {
+      if (progress >= TOUCH_COMMIT_THRESHOLD) {
         commitOpenReveal();
-      } else if (movedDistance < 8) {
-        tapCount += 1;
+        return;
+      }
+
+      if (movedHypot < 10) {
+        const now = Date.now();
+        tapCount = (now - lastTapAt <= 450) ? tapCount + 1 : 1;
+        lastTapAt = now;
         if (tapCount >= 2) {
           commitOpenReveal();
         } else {
           springBackToStart(true);
         }
-      } else {
-        tapCount = 0;
-        springBackToStart(false);
+        return;
       }
+
+      tapCount = 0;
+      // If user swiped upward out of habit, nudge the tear handle rightward to teach horizontal tear
+      const isVerticalSwipeAttempt = Math.abs(deltaY) > 36 && Math.abs(deltaY) > Math.abs(deltaX) * 1.5 && progress < 0.12;
+      springBackToStart(isVerticalSwipeAttempt);
     }
 
-    openButton.addEventListener("pointerup", (e) => finishPointerGesture(e, false));
-    openButton.addEventListener("pointercancel", (e) => finishPointerGesture(e, true));
-    openButton.addEventListener("lostpointercapture", (e) => finishPointerGesture(e, true));
+    opening.addEventListener("pointerup", (e) => finishPointerGesture(e, false));
+    opening.addEventListener("pointercancel", (e) => finishPointerGesture(e, true));
+    opening.addEventListener("lostpointercapture", (e) => finishPointerGesture(e, true));
+
+    window.addEventListener("resize", () => {
+      if (!isOpened && !isDragging) {
+        visualMaxX = measureMaxDrag();
+        applyTearVisual(0);
+      }
+    });
 
     // Keyboard & Assistive Technology (VoiceOver / TalkBack synthesized click) support
     openButton.addEventListener("keydown", (event) => {
       if (isOpened) return;
       if (event.key === "Enter" || event.key === " " || event.key === "ArrowRight") {
         event.preventDefault();
-        maxDragX = measureMaxDrag();
+        visualMaxX = measureMaxDrag();
         commitOpenReveal();
       }
     });
@@ -1813,7 +1975,7 @@
     openButton.addEventListener("click", (event) => {
       // Synthesized click from screen reader / assistive tech (detail === 0)
       if (!isOpened && event.detail === 0) {
-        maxDragX = measureMaxDrag();
+        visualMaxX = measureMaxDrag();
         commitOpenReveal();
       }
     });
